@@ -90,3 +90,21 @@ let message: string = "Hello, World!";
 - `: string`: This is the part that should include a data type for the type annotation to work, explicitly telling TypeScript that `message` should only contain string values. If you try to assign a number or any other type to this variable later, TypeScript will catch the error before your code runs.
 
 This will facilitate makings of any program, all thanks to the explicit typing. Transforming TypeScript into a powerful tool for catching bugs early and making your code more predictable.
+
+### Compilation Process & Errors:
+
+**Compilation process** is when your TypeScript files (`.ts`) are converted into plain JavaScript files (`.js`) that can be executed.
+
+During this compilation, TypeScript's **type checker** analyzes your code and identifies potential problems before the code ever runs. This is one of TypeScript's most powerful features - catching errors at compile time rather than runtime.
+
+#### Example of a Type Mismatch Error:
+
+```ts
+// This TypeScript code has a type error
+let age: number = "25"; // Error: Type 'string' is not assignable to type 'number'
+```
+
+When TypeScript encounters a type mismatch like this, it will show you an error message at your IDE or during compilation. The error tells your exactly what's wrong: you've declared `age` as a number, but your're trying to assign it a string value.
+
+Even when there are type errors, TypeScript will still generate JavaScript code (unless configured otherwise), but the errors serve as warnings that your code might not behave as expected. Fixing these errors ensures your program runs correctly and maintains type safety.
+
