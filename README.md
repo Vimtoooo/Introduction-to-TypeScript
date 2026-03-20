@@ -66,3 +66,27 @@ Type annotations serve as documentation, making it clear what kind of data funct
 
 TypeScrip enables superior autocompletion, refactoring, and navigation in code editors. Your editor knows exactly what properties and methods are available on each variable.
 
+### Understanding TypeScript Code:
+
+Now it's time to write some TypeScript code! The key difference between TypeScript and JavaScript is the ability to **add type annotations** to your variables.
+
+A type annotation tells TypeScript exactly what kind of data a variable should hold. The syntax is simple: you add a colon followed by the type name after the variable name (which is similar to **type hinting in Python**).
+
+#### Declaring Variables Syntax:
+
+```
+let variableName: type = value;
+```
+
+For example, to create a variable that can only hold text (strings), you would write:
+
+```ts
+let message: string = "Hello, World!";
+```
+
+##### Breakdown:
+
+- `let`: Used to initialize a variable for the first time. You can also use `var` and `const`, but each serve for a specific purpose.
+- `: string`: This is the part that should include a data type for the type annotation to work, explicitly telling TypeScript that `message` should only contain string values. If you try to assign a number or any other type to this variable later, TypeScript will catch the error before your code runs.
+
+This will facilitate makings of any program, all thanks to the explicit typing. Transforming TypeScript into a powerful tool for catching bugs early and making your code more predictable.
