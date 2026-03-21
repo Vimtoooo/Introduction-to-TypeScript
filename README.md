@@ -218,3 +218,19 @@ let isActive = true;            // TypeScript infers: boolean
 This type inference provides the same type safety as explicit annotations, but with cleaner, more readable code. TypeScript will still catch type errors if you try to reassign these variables to incompatible values.
 
 Type inference works because TypeScript analyzes the initial value at the moment of assignment. A string value tells TypeScript the variable should be of type `string`, a numeric value indicates a `number`, and so on.
+
+### Explicit Type Annotations:
+
+Understanding when to use explicit annotations versus relying on inference is crucial for writing effective TypeScript code.
+
+#### Basic Syntax:
+
+The most common scenario requiring explicit type annotations is when you declare a variable without immediately assigning it a value:
+
+```ts
+let score: number;  // Must specify type explicitly
+score = 85;         // Assign value later
+```
+
+Without the explicit `: number` annotation, TypeScript would infer the type as `any`, losing all type safety benefits. By explicitly declaring the type, you ensure that only numeric values can be assigned to this variable later.
+
