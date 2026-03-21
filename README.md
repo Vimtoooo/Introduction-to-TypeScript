@@ -153,3 +153,31 @@ data = true;        // No error
 data.foo.bar.baz;   // No error (even though this might crash at runtime)
 ```
 
+### The 'unknown' Type:
+
+Like `any`, a variable of type `unknown` can hold any value!
+
+The key difference is that TypeScript won't let you perform operations no an `unknown` value without first checking what type it actually is. This prevents many runtime errors:
+
+#### Basic Syntax:
+
+```ts
+let userInput: unknown = "Hello";
+userInput = 42;        // No error
+userInput = true;      // No error
+```
+
+Validating the data type being stored inside the `unknown` variable type before any operation:
+
+```ts
+let data: unknown = "TypeScript";
+// data.toUpperCase(); // Error! TypeScript doesn't know it's a string
+
+// You must check the type first
+if (typeof data === "string") {
+    console.log(data.toUpperCase()); // Now it's safe!
+}
+```
+
+This makes `unknown` much safer than `any` because it forces you to verify the type before using type-specific methods or properties.
+
