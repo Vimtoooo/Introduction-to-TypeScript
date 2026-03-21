@@ -138,3 +138,18 @@ The `boolean` type represents either `true` or `false` values, perfect for flags
 let inStock: boolean = true;
 ```
 
+### The 'any' Type: Escape Hatch
+
+Sometimes you need to work with data where you don't know the exact type in advance, or you're migrating JavaScript code to TypeScript gradually. For these situations, TypeScript provides the `any` type - your **escape hatch** from type checking.
+
+The `any` type allows a variable to hold any value and disables TypeScript's type checking for that variable.
+
+#### Basic Syntax:
+
+```ts
+let data: any = 42;
+data = "Hello";     // No error
+data = true;        // No error
+data.foo.bar.baz;   // No error (even though this might crash at runtime)
+```
+
