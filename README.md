@@ -203,3 +203,18 @@ function getLength(text: string | null): number {
 }
 ```
 
+### Type Inference in Action:
+
+When you initialize a variable with a value, TypeScript examines that value and automatically assigns the appropriate type:
+
+#### Basic Syntax:
+
+```ts
+let message = "Hello, World!";  // TypeScript infers: string
+let count = 42;                 // TypeScript infers: number
+let isActive = true;            // TypeScript infers: boolean
+```
+
+This type inference provides the same type safety as explicit annotations, but with cleaner, more readable code. TypeScript will still catch type errors if you try to reassign these variables to incompatible values.
+
+Type inference works because TypeScript analyzes the initial value at the moment of assignment. A string value tells TypeScript the variable should be of type `string`, a numeric value indicates a `number`, and so on.
