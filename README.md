@@ -181,3 +181,25 @@ if (typeof data === "string") {
 
 This makes `unknown` much safer than `any` because it forces you to verify the type before using type-specific methods or properties.
 
+### Working with 'null' and 'undefined':
+
+The `undefined` type represents a variable that has been declared but not assigned a value, or a function that doesn't explicitly return anything. In the other hand, the `null` type represents an intentional absence of a value - it's explicitly assigned to indicate "no value".
+
+#### Basic Syntax:
+
+```ts
+let userName: string | null = null;        // Intentionally no value
+let userAge: number | undefined;           // Declared but not assigned
+```
+
+TypeScript's **string null checking** helps prevent common runtime errors by forcing you to handle these cases explicitly. When you have a variable that might be `null` or `undefined`, you must check for these values before accessing properties or methods.
+
+```ts
+function getLength(text: string | null): number {
+    if (text === null) {
+        return 0;  // Handle the null case
+    }
+    return text.length;  // Safe to use string methods
+}
+```
+
