@@ -86,7 +86,7 @@ let message: string = "Hello, World!";
 
 ##### Breakdown:
 
-- `let`: Used to initialize a variable for the first time. You can also use `var` and `const`, but each serve for a specific purpose.
+- `let`: Used to initialize a variable for the first time. You can also use `var` and `const`, but each serve a specific purpose of usage.
 - `: string`: This is the part that should include a data type for the type annotation to work, explicitly telling TypeScript that `message` should only contain string values. If you try to assign a number or any other type to this variable later, TypeScript will catch the error before your code runs.
 
 This will facilitate makings of any program, all thanks to the explicit typing. Transforming TypeScript into a powerful tool for catching bugs early and making your code more predictable.
@@ -107,4 +107,34 @@ let age: number = "25"; // Error: Type 'string' is not assignable to type 'numbe
 When TypeScript encounters a type mismatch like this, it will show you an error message at your IDE or during compilation. The error tells your exactly what's wrong: you've declared `age` as a number, but your're trying to assign it a string value.
 
 Even when there are type errors, TypeScript will still generate JavaScript code (unless configured otherwise), but the errors serve as warnings that your code might not behave as expected. Fixing these errors ensures your program runs correctly and maintains type safety.
+
+## Core Types:
+
+### Basic Types: string, number and boolean
+
+TypeScript has three fundamental **primitive types** that form the building blocks of most applications: `string`, `number` and `boolean`. These types allow you to enforce what kind of data your variables can hold.
+
+#### The String Type:
+
+The `string` type is used for text data. You can declare a string variable like this:
+
+```ts
+let productName: string = "Laptop";
+```
+
+#### The Number Type:
+
+The `number` type handles all numeric values in TypeScript - both integers and decimals:
+
+```ts
+let price: number = 999.99;
+```
+
+#### The Boolean Type:
+
+The `boolean` type represents either `true` or `false` values, perfect for flags and conditions:
+
+```ts
+let inStock: boolean = true;
+```
 
