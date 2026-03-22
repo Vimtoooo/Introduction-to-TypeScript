@@ -234,3 +234,20 @@ score = 85;         // Assign value later
 
 Without the explicit `: number` annotation, TypeScript would infer the type as `any`, losing all type safety benefits. By explicitly declaring the type, you ensure that only numeric values can be assigned to this variable later.
 
+## Data Structure: Arrays & Tuples
+
+### Typed Arrays:
+
+**Typed arrays** are one of TypeScript's most powerful features for organizing and managing values while maintaining type safety.
+
+In TypeScript, you can specify that an array should only contain elements of a particular type using the `Type[]` syntax. This ensures that every element in the array matches the expected type, preventing common errors that occur when mixing different data types.
+
+#### Basic Syntax:
+
+```ts
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: string[] = ["Alice", "Bob", "Charlie"];
+let flags: boolean[] = [true, false, true];
+```
+
+When you declare a typed array, TypeScript enforces that only values of the specified type can be added to it. This means you can't accidentally mix strings with numbers on other incompatible types, rather which helps catch errors during development rather than at runtime.
