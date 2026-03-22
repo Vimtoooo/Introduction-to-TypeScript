@@ -251,3 +251,18 @@ let flags: boolean[] = [true, false, true];
 ```
 
 When you declare a typed array, TypeScript enforces that only values of the specified type can be added to it. This means you can't accidentally mix strings with numbers on other incompatible types, rather which helps catch errors during development rather than at runtime.
+
+### 'readonly' Modifiers for Arrays:
+
+TypeScript provides the `readonly` modifier for arrays, which prevents any changes to the array's contents once it's created.
+
+When you add `readonly` before an array type, TypeScript ensures that you cannot add, remove or modify elements. This creates an **immutable data structure** that's perfect for configuration data, constants, or any situation where you want to guarantee the array won't change.
+
+#### Basic Syntax:
+
+```ts
+let colors: readonly string[] = ["red", "green", "blue"];
+let numbers: readonly number[] = [1, 2, 3, 4, 5];
+```
+
+The `readonly` modifier blocks all mutating operations like `push()`, `pop()`, `splice()` and direct index assignment. If you try to use these methods, TypeScript will show a compile-time error, preventing potential bugs before your code runs.
