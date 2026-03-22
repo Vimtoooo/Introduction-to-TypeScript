@@ -266,3 +266,23 @@ let numbers: readonly number[] = [1, 2, 3, 4, 5];
 ```
 
 The `readonly` modifier blocks all mutating operations like `push()`, `pop()`, `splice()` and direct index assignment. If you try to use these methods, TypeScript will show a compile-time error, preventing potential bugs before your code runs.
+
+### What is a Tuple?
+
+A tuple is an array with a fixed number of elements where the type of each element at each position is known and defined.
+
+Think of a tuple as a container with labelled slots, unlike a regular array where you might have `string[]` (any number of strings), a tuple specifies exactly how many elements it contains and what type each element should be.
+
+#### Basic Syntax:
+
+```ts
+// Regular array - any number of strings
+let names: string[] = ["Alice", "Bob", "Charlie"];
+
+// Tuple - exactly 2 elements: string, then number
+let person: [string, number] = ["Alice", 25];
+```
+
+#### Key Difference:
+
+The key difference is that tuples have a **fixed structure**. In the example above,the first element must always be a string, the second must always be a number, and there can be no third element.
