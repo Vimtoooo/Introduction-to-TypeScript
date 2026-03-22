@@ -286,3 +286,27 @@ let person: [string, number] = ["Alice", 25];
 #### Key Difference:
 
 The key difference is that tuples have a **fixed structure**. In the example above,the first element must always be a string, the second must always be a number, and there can be no third element.
+
+### Declaring and Accessing Tuples:
+
+The syntax for creating a tuple is straightforward: you specify the types of each element in square brackets, in the exact order they should appear. Following this format: `[Type1, Type2, Type3]`.
+
+#### Example of Usage:
+
+```ts
+let productInfo: [string, number] = ["Laptop", 999];
+let coordinates: [number, number] = [10, 20];
+let userRecord: [number, string, boolean] = [1, "Alice", true];
+```
+
+#### Accessing Tuple Elements:
+
+Similar to arrays, you can perform an index operator or notation to retrieve an element at the specified index:
+
+```ts
+let product: [string, number] = ["Phone", 599];
+console.log(product[0]); // "Phone" (TypeScript knows this is a string)
+console.log(product[1]); // 599 (TypeScript knows this is a number)
+```
+
+TypeScript knows the exact type at each position, so you get full type safety. The key advantage is that TypeScript enforces both the correct type and the correct position. If you access `product[0]`.toFixed(), TypeScript will catch the error because it knows the first element is a string, not a number.
