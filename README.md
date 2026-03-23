@@ -327,3 +327,17 @@ console.log(id);   // 42 (TypeScript knows this is a number)
 console.log(name); // "Alice" (TypeScript knows this is a string)
 ```
 
+### Readonly Tuples:
+
+Just as you can make arrays immutable with the `readonly` modifier, TypeScript allows you to create **readonly tuples** that cannot be modified after initialization. This provides the same immutability benefits for structured, fixed-length data.
+
+When you add `readonly` before a tuple type, TypeScript prevents any changes to the tuple's elements. This means you cannot reassign values at specific positions or use methods that would modify the tuple's contents.
+
+#### Basic Syntax:
+
+```ts
+let point: readonly [number, number] = [10, 20];
+let coordinates: readonly [string, number, number] = ["A", 5, 15];
+```
+
+The `readonly` modifier is particularly valuable for tuples because they often represent important structured data like coordinates, RGB color values, or database records that shouldn't change once created.
