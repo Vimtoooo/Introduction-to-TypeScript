@@ -310,3 +310,20 @@ console.log(product[1]); // 599 (TypeScript knows this is a number)
 ```
 
 TypeScript knows the exact type at each position, so you get full type safety. The key advantage is that TypeScript enforces both the correct type and the correct position. If you access `product[0]`.toFixed(), TypeScript will catch the error because it knows the first element is a string, not a number.
+
+### Destructuring Tuples:
+
+WHel accessing tuple elements by index works perfectly, there's an even more elegant way to extract values from tuples: **destructuring**. This JavaScript feature works seamlessly with TypeScript's typed tuples, allowing you to unpack tuple values into separate variables in a single line.
+
+#### Basic Syntax:
+
+Array destructuring uses square brackets on the left side of an assignment to create new variables that correspond to each position in the tuple:
+
+```ts
+let userInfo: [number, string] = [42, "Alice"];
+let [id, name] = userInfo;
+
+console.log(id);   // 42 (TypeScript knows this is a number)
+console.log(name); // "Alice" (TypeScript knows this is a string)
+```
+
