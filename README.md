@@ -341,3 +341,37 @@ let coordinates: readonly [string, number, number] = ["A", 5, 15];
 ```
 
 The `readonly` modifier is particularly valuable for tuples because they often represent important structured data like coordinates, RGB color values, or database records that shouldn't change once created.
+
+### Multi-dimensional Typed Arrays:
+
+TypeScript allows you to create **multi-dimensional arrays** to handle this kind of structured data with full type safety.
+
+A multi-dimensional array is essentially an array of arrays. The most common example is a 2D array, which you can think of as a grid or a matrix. To type a 2D array in TYpeScript, you use the `Type[][]` syntax:
+
+#### Basic Syntax:
+
+```ts
+let grid: number[][] = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+let gameBoard: string[][] = [
+  ["X", "O", "X"],
+  ["O", "X", "O"],
+  ["X", "O", "X"]
+];
+```
+
+#### Accessing Elements:
+
+To access elements in a multi-dimensional array, you sue multiple sets of square brackets. The first index selects the row, and the seconds index selects the column within that row:
+
+```ts
+let matrix: number[][] = [[1, 2], [3, 4]];
+console.log(matrix[0][1]); // 2 (first row, second column)
+console.log(matrix[1][0]); // 3 (second row, first column)
+```
+
+TypeScript ensures that each inner array contains only elements of the specified type, giving you the same type safety benefits you get with regular arrays, but extended to work with complex grid-like data structures.
