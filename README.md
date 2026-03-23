@@ -375,3 +375,30 @@ console.log(matrix[1][0]); // 3 (second row, first column)
 ```
 
 TypeScript ensures that each inner array contains only elements of the specified type, giving you the same type safety benefits you get with regular arrays, but extended to work with complex grid-like data structures.
+
+### Spread Operator with Arrays:
+
+JavaScript's spread operator (`...`) is a powerful feature that works seamlessly with TypeScript's typed arrays. When you use the spread operator syntax to combine arrays, TypeScript automatically infers the correct type for the resulting array, maintaining full type safety throughout the operation.
+
+#### What the Spread Operator Does:
+
+The spread operator allows you to "spread out" the elements of an array into individual elements. When combining typed arrays, you simple use the spread syntax inside square brackets to create a new array:
+
+#### Basic Syntax:
+
+```ts
+let firstNumbers: number[] = [1, 2, 3];
+let secondNumbers: number[] = [4, 5, 6];
+let combined: number[] = [...firstNumbers, ...secondNumbers];
+// Result: [1, 2, 3, 4, 5, 6]
+```
+
+You can also mix the spread operator with individual elements:
+
+```ts
+let scores: number[] = [85, 92];
+let allScores: number[] = [100, ...scores, 78];
+// Result: [100, 85, 92, 78]
+```
+
+This approach creates an new array without modifying the original arrays, which is particularly useful when working with immutable data patterns. The spread operator provides a clean, readable way to combine arrays while preserving TypeScript's type checking benefits.
