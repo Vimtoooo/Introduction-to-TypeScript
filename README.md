@@ -424,3 +424,19 @@ function multiply(a: number, b: number): number {
 ```
 
 The syntax follows a simple pattern: `parameterName: type` foe each parameter, and `: returnType` after the closing parenthesis.
+
+### Typing Arrow Functions:
+
+For arrow functions, you add type annotations to parameters within the parenthesis, just like regular functions. The return type annotation comes after the parameter list but before the arrow (`=>`):
+
+#### Basic Syntax:
+
+```ts
+const multiply = (a: number, b: number): number => {
+  return a * b;
+};
+
+const greet = (name: string): string => `Hello, ${name}!`;
+```
+
+The key difference from regular function declarations is that the return type annotation appears before the arrow rather than after the function name. This maintains TypeScript's type safety while preserving the clean, modern syntax that makes arrow functions popular.

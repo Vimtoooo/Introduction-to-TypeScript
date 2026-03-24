@@ -9,3 +9,12 @@ let myArray: string[] = ["hello", "world", "!"];
 
 // Making a tuple
 const myTuple: [boolean, string] = [true, "Valid"];
+
+// Arrow Functions:
+const multiply = (a: number, b: number): number => {
+  return a * b;
+};
+
+const greet = (name: string): string => `Hello, ${name}!`;
+
+// console.log(multiply(2, 6));
