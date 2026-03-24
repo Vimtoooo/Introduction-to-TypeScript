@@ -440,3 +440,23 @@ const greet = (name: string): string => `Hello, ${name}!`;
 ```
 
 The key difference from regular function declarations is that the return type annotation appears before the arrow rather than after the function name. This maintains TypeScript's type safety while preserving the clean, modern syntax that makes arrow functions popular.
+
+### The 'void' Return Type:
+
+Similar to Java, when a function performs an action but doesn't return anything meaningful, you use the `void` return type to explicitly indicate this intention.
+
+The `void` type represents the absence of a return value. Functions that log messages, update variables, or perform side effects typically use `void` as their return type:
+
+#### Basic Syntax:
+
+```ts
+function logMessage(message: string): void {
+  console.log(message);
+}
+
+function updateCounter(): void {
+  counter++;
+}
+```
+
+While TypeScript can often infer that a function return `void`, explicitly adding the `: void` annotation makes your code more readable and communicates your intent clearly to other developers.
