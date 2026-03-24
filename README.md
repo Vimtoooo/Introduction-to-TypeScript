@@ -460,3 +460,22 @@ function updateCounter(): void {
 ```
 
 While TypeScript can often infer that a function return `void`, explicitly adding the `: void` annotation makes your code more readable and communicates your intent clearly to other developers.
+
+### Optional Parameters with '?':
+
+Sometimes you want to create functions where certain parameters are not always required. TypeScript provides the `?` syntax to mark parameters as **optional**, meaning callers can choose whether or not to provide them when calling the function.
+
+#### Basic Syntax:
+
+To make a parameter optional, you add a question mark after the parameter name but before the type annotation:
+
+```ts
+function greet(name: string, greeting?: string): string {
+  if (greeting) {
+    return greeting + ", " + name;
+  }
+  return "Hello, " + name;
+}
+```
+
+In this example, `name` is required while `greeting` is optional. You can call this function with just the name(`greet("Alice")`) or with both parameters(`greet("Alice", "Good morning")`). Inside the function, optional parameters have the type `string | undefined`, so you should check if they exist before using them!

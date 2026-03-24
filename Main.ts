@@ -15,6 +15,17 @@ const multiply = (a: number, b: number): number => {
   return a * b;
 };
 
-const greet = (name: string): string => `Hello, ${name}!`;
+// const greet = (name: string): string => `Hello, ${name}!`;
 
 // console.log(multiply(2, 6));
+
+// Optional Parameters:
+function greet(name: string, greeting?: string): string {
+  if (greeting) {
+    return greeting + ", " + name;
+  }
+  // console.log(greeting); // Undefined value
+  return "Hello, " + name;
+}
+
+// console.log(greet("Jeff"));
