@@ -402,3 +402,25 @@ let allScores: number[] = [100, ...scores, 78];
 ```
 
 This approach creates an new array without modifying the original arrays, which is particularly useful when working with immutable data patterns. The spread operator provides a clean, readable way to combine arrays while preserving TypeScript's type checking benefits.
+
+## Working with Functions:
+
+### Typing Parameters & Return Values:
+
+Functions are the building blocks of any application, and TypeScript makes them safer and more predictable by allowing you to specify exactly what types of data they accept and return. When you add **type annotations** to functions, you create a clear contract that defines what goes in and what comes out.
+
+#### Basic Syntax:
+
+To add types to a function, you specify the type for  each parameter after its name, and optionally specify the return type after the parameter list:
+
+```ts
+function greet(name: string): string {
+  return "Hello, " + name;
+}
+
+function multiply(a: number, b: number): number {
+  return a * b;
+}
+```
+
+The syntax follows a simple pattern: `parameterName: type` foe each parameter, and `: returnType` after the closing parenthesis.
