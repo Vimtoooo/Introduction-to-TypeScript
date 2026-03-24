@@ -479,3 +479,25 @@ function greet(name: string, greeting?: string): string {
 ```
 
 In this example, `name` is required while `greeting` is optional. You can call this function with just the name(`greet("Alice")`) or with both parameters(`greet("Alice", "Good morning")`). Inside the function, optional parameters have the type `string | undefined`, so you should check if they exist before using them!
+
+### Default Parameter Values:
+
+While optional parameters let you choose whether to provide a value, **default parameters** take this concept further by automatically providing a fallback value when no argument is passed. This makes functions more convenient to use while maintaining type safety.
+
+#### Basic Syntax:
+
+To create a default parameter, you assign a value directly in the function signature using the equals sign. TypeScript automatically infers the parameter's type from the default value:
+
+```ts
+function greet(name: string, greeting = "Hello"): string {
+  return greeting + ", " + name;
+}
+
+function calculateArea(width: number, height = 10): number {
+  return width * height;
+}
+```
+
+Even though the default parameter has been inserted with a value, you can still use type annotation on the parameter what will receive that value by default, and TypeScript will already know what value it will hold.
+
+Default parameters are effectively optional - you don't need to use the `?` syntax because the default value ensures the parameter always has a value. This approach is cleaner than optional parameters when you have a sensible default, as it eliminates the need to check for `undefined` inside your function.

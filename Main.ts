@@ -20,12 +20,21 @@ const multiply = (a: number, b: number): number => {
 // console.log(multiply(2, 6));
 
 // Optional Parameters:
-function greet(name: string, greeting?: string): string {
-  if (greeting) {
-    return greeting + ", " + name;
-  }
-  // console.log(greeting); // Undefined value
-  return "Hello, " + name;
-}
+// function greet(name: string, greeting?: string): string {
+//   if (greeting) {
+//     return greeting + ", " + name;
+//   }
+//   // console.log(greeting); // Undefined value
+//   return "Hello, " + name;
+// }
 
 // console.log(greet("Jeff"));
+
+// Default Parameters
+function greet(name: string, greeting: string = "Hello"): string {
+  return greeting + ", " + name;
+}
+
+function calculateArea(width: number, height = 10): number {
+  return width * height;
+}
