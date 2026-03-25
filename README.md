@@ -510,6 +510,7 @@ Rest parameters use the spread operator (`...`) followed by a parameter name and
 
 #### Basic Syntax:
 
+```ts
 function sum(...numbers: number[]): number {
   let total = 0;
   for (const num of numbers) {
@@ -524,4 +525,26 @@ sum(1, 2, 3, 4, 5);  // 15
 ```
 
 The rest parameter must always be the last parameter in the function signature. TypeScript ensures that all arguments passed to the rest parameter match the specified array type, giving you the flexibility of variable arguments with the safety of static typing.
+
+### Defining Function Types:
+
+TypeScript allows you to create a **type alias** for a function's signature, which acts like a blueprint that functions must match.
+
+A function type alias defines the shape of a function using the `type` keyword. This syntax shows the parameter types in parentheses followed by an arrow and the return type:
+
+#### Basic Syntax:
+
+```ts
+type MathOperation = (a: number, b: number) => number;
+
+const add: MathOperation = (a, b) => {
+  return a + b;
+};
+
+const multiply: MathOperation = (a, b) => {
+  return a * b;
+};
+```
+
+In this example, `MathOperation` is a type alias that describes any function taking two numbers and returning a number. Both `add` and `multiply` conform to this type, ensuring consistency across your codebase. It is optional to provide a type annotation to the implemented method, even though TypeScript will already know that the type function will return a specified type when it was first defined.
 
