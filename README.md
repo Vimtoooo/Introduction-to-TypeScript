@@ -574,3 +574,32 @@ let adminUser: UserID = 42;
 ```
 
 Type aliases don't create new types - they dimply provide alternative names for existing ones. This means `UserID` and `string | number` are completely interchangeable, but using the alias makes your code's intent much clearer to other developers.
+
+### Union Types ('|'):
+
+Sometimes you need a variable that can hold different types of values depending on the situation. For example, a user ID might be stored as either a string like "user123" or a number like `42`. TypeScript's **union types** (similar to Python's union types) solve this problem by allowing a variable to be one of several specified types.
+
+Union types use the pipe character (`|`) to combine multiple types. The syntax reads naturally as "this OR that":
+
+#### Basic Syntax:
+
+```ts
+let userId: string | number;
+
+userId = "user123";  // Valid - string
+userId = 42;         // Valid - number
+userId = true;       // Error - boolean not allowed
+```
+
+You can manipulate with union types anywhere, when declaring a variable, or type aliases, method return values and parameter values!
+
+```ts
+function displayMessage(content: string | number): void {
+  console.log("Message: " + content);
+}
+
+displayMessage("Hello!");  // Works with string
+displayMessage(404);       // Works with number
+```
+
+Union types provide type safety while maintaining flexibility - TypeScript ensures you only use values that match one of the specified types, preventing runtime errors from unexpected data types.
