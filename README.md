@@ -501,3 +501,27 @@ function calculateArea(width: number, height = 10): number {
 Even though the default parameter has been inserted with a value, you can still use type annotation on the parameter what will receive that value by default, and TypeScript will already know what value it will hold.
 
 Default parameters are effectively optional - you don't need to use the `?` syntax because the default value ensures the parameter always has a value. This approach is cleaner than optional parameters when you have a sensible default, as it eliminates the need to check for `undefined` inside your function.
+
+### Typing Rest Parameters:
+
+TypeScript provides **rest parameters** to handle this scenario elegantly while maintaining type safety.
+
+Rest parameters use the spread operator (`...`) followed by a parameter name and a typed array. This collects all remaining arguments into a single array parameter:
+
+#### Basic Syntax:
+
+function sum(...numbers: number[]): number {
+  let total = 0;
+  for (const num of numbers) {
+    total += num;
+  }
+  return total;
+}
+
+// Can be called with any number of arguments
+sum(1, 2);           // 3
+sum(1, 2, 3, 4, 5);  // 15
+```
+
+The rest parameter must always be the last parameter in the function signature. TypeScript ensures that all arguments passed to the rest parameter match the specified array type, giving you the flexibility of variable arguments with the safety of static typing.
+

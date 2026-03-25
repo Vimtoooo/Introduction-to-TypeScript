@@ -38,3 +38,24 @@ function greet(name: string, greeting: string = "Hello"): string {
 function calculateArea(width: number, height = 10): number {
   return width * height;
 }
+
+// Create the sumAll function with rest parameters
+function sumAll(...numbers: number[]): number {
+    let total: number = 0;
+    for (let num of numbers) { total += num; }
+    return total;
+}
+
+// Create the findMaximum function with rest parameters
+function findMaximum(...numbers: number[]): number | undefined {
+    let highest: number | undefined;
+    for (let num of numbers) {
+        if (typeof highest === "undefined" || num > highest) highest = num;
+    }
+    return highest;
+}
+
+// Create the concatenateStrings function with separator and rest parameters
+function concatenateStrings(separator: string, ...texts: string[]): string {
+    return texts.join(separator);
+}
