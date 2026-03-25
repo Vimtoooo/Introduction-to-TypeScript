@@ -548,3 +548,29 @@ const multiply: MathOperation = (a, b) => {
 
 In this example, `MathOperation` is a type alias that describes any function taking two numbers and returning a number. Both `add` and `multiply` conform to this type, ensuring consistency across your codebase. It is optional to provide a type annotation to the implemented method, even though TypeScript will already know that the type function will return a specified type when it was first defined.
 
+## Types: Aliases, unions and Inter
+
+### Type Aliases for Primitives:
+
+TypeScript's `type` keyword allows you to create a **type alias** - essentially a custom name for any existing type, including primitive types and their combinations.
+
+The syntax is straightforward: you use the `type` keyword followed by your chosen name, an equals sign, and the type you want to alias:
+
+#### Basic Syntax:
+
+```ts
+type UserID = string | number;
+type Score = number;
+type IsActive = boolean;
+```
+
+Once you've created a type alias, you can use it anywhere you would use the original type. This is particularly valuable when working with union types, as it makes your code more readable and self-documenting:
+
+```ts
+type UserID = string | number;
+
+let currentUser: UserID = "user123";
+let adminUser: UserID = 42;
+```
+
+Type aliases don't create new types - they dimply provide alternative names for existing ones. This means `UserID` and `string | number` are completely interchangeable, but using the alias makes your code's intent much clearer to other developers.
