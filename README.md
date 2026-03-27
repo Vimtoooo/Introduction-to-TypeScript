@@ -663,3 +663,62 @@ let orderStatus: Status = "pending"; // Valid
 ```
 
 This approach gives you the flexibility of multiple options while maintaining strict type safety. TypeScript will catch typos and invalid values at compile time, making your code more reliable than using general string types.
+
+### Intersection Types ('&'):
+
+While union types let you create variables that can be one of several types, **intersection types** work in the opposite direction. They combine multiple types into a single type that has all of the properties of the combined types!
+
+Intersection types use the ampersand (`&`) operator to merge types together. When you intersect two object types, the result contains every property from both types:
+
+#### Basic Syntax:
+
+```ts
+type HasName = { name: string };
+type HasAge = { age: number };
+
+type Person = HasName & HasAge;
+
+// Person now has both name AND age properties
+let user: Person = {
+  name: "Alice",
+  age: 30
+};
+```
+
+This is particularly useful when you want to build complex types from smaller, reusable pieces. Instead of defining one large object type, you can create focused types for specific concerns and then combine them as needed.
+
+Intersection types ensure that the resulting type satisfies all the requirements of the intersected types. The variable must have every property from every type in the intersection - there's no picking and choosing like with unions.
+
+#### Example of Usage:
+
+```ts
+type HasName = { name: string };
+type HasAge = { age: number };
+type HasEmail = { email: string };
+
+// Create Person and Employee types using intersection
+type Person = HasName & HasAge;
+type Employee = HasName & HasAge & HasEmail;
+
+// Create variables user and worker
+const user: Person = {
+    name: "Alice",
+    age: 25
+};
+
+const worker: Employee = {
+    name: "Bob",
+    age: 30,
+    email: "bob@company.com"
+};
+
+// Create displayPerson and displayEmployee functions
+function displayPerson(person: Person): string { return `Name: ${person.name}, Age: ${person.age}`; }
+function displayEmployee(employee: Employee): string { return `Name: ${employee.name}, Age: ${employee.age}, Email: ${employee.email}`; }
+
+// Call the functions and print the results
+console.log(displayPerson(user));
+console.log(displayEmployee(worker));
+```
+
+
