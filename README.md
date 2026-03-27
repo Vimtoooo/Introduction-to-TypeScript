@@ -721,4 +721,34 @@ console.log(displayPerson(user));
 console.log(displayEmployee(worker));
 ```
 
+### Combining Type Aliases:
 
+On of the most powerful aspects of type aliases is their ability to be combined and reused to create more sophisticated type definitions. Instead of defining complex types from scratch each time, you can build them by composing smaller, focused type aliases together.
+
+This approach promotes code reusability and makes your type definitions more maintainable. When you need to update a base type, all of the composed types that use it automatically inherit the changes:
+
+#### Basic Syntax:
+
+```ts
+type Email = string;
+type Phone = number;
+
+type Contact = {
+  name: string;
+  email: Email;
+  phone: Phone;
+};
+```
+
+You can also combine type aliases within union types to create flexible data structures. This is particularly useful when an object property might accept different formats:
+
+```ts
+type ContactMethod = Email | Phone;
+
+type User = {
+  id: number;
+  preferredContact: ContactMethod;
+};
+```
+
+This compositional approach makes your code more expressive and easier to understand, rather than seeing generic types like `string` or `number`. Other developers will immediately understand the intended purpose through meaningful type names like `Email` and `Phone`.
