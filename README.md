@@ -636,3 +636,30 @@ function processInput(input: string | string[]): void {
 ```
 
 The `typeof` operator is one of the most common type guards. After the check, TypeScript automatically narrows the type within each branch, giving you full access to type-specific properties and methods while maintaining complete type safety.
+
+### Literal Types:
+
+**Literal types** let you constrain a variable to exact, specific values rather than broad categories. Instead of accepting any string, you can limit it to only `"left"`, `"right"`, `"up"` or `"down"`.
+
+A literal type uses the exact value as the type itself. You can create literal types for strings, numbers or boolean:
+
+#### Basic Syntax:
+
+```ts
+let direction: "left" = "left";  // Only "left" is allowed
+let count: 42 = 42;              // Only the number 42 is allowed
+let isReady: true = true;        // Only true is allowed
+```
+
+Literal types become powerful when combined with union types, creating a controlled set of allowed values. This is perfect for scenarios like directions, status codes, or configuration options:
+
+```ts
+type Direction = "left" | "right" | "up" | "down";
+type Status = "pending" | "approved" | "rejected";
+
+let playerMove: Direction = "up";    // Valid
+let orderStatus: Status = "pending"; // Valid
+// let invalid: Direction = "diagonal"; // Error!
+```
+
+This approach gives you the flexibility of multiple options while maintaining strict type safety. TypeScript will catch typos and invalid values at compile time, making your code more reliable than using general string types.

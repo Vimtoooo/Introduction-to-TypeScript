@@ -55,6 +55,7 @@ function findMaximum(...numbers: number[]): number | undefined {
     return highest;
 }
 
+// Dealing with Union types:
 // Create the concatenateStrings function with separator and rest parameters
 function concatenateStrings(separator: string, ...texts: string[]): string {
     return texts.join(separator);
@@ -77,8 +78,7 @@ function formatMessage(content: number | boolean): string {
 console.log(JSON.stringify(["hello", "world"]))
 // Process the inputs according to the requirements
 // Call the functions and print the results
-let input1: string | string[] = firstInput.startsWith('[') ?  : firstInput;
-console.log(input1)
+let input1: string | string[] = firstInput.startsWith('[') ? JSON.parse(firstInput) : firstInput;
 console.log(processData(input1))
 let input2: number | boolean = ["true", "false"].includes(secondInput) ? Boolean(secondInput) : Number(secondInput);
 console.log(formatMessage(input2))
