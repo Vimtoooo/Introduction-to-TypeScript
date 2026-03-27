@@ -59,3 +59,26 @@ function findMaximum(...numbers: number[]): number | undefined {
 function concatenateStrings(separator: string, ...texts: string[]): string {
     return texts.join(separator);
 }
+
+const firstInput: string = '["cat","dog"]';
+const secondInput: string = "25";
+
+// TODO: Write your code here
+// Create the processData function with type guard
+function processData(input: string | string[]): number {
+    if (typeof input === "string") return input.length;
+    return input.join("").length;
+};
+// Create the formatMessage function with type guard
+function formatMessage(content: number | boolean): string {
+    if (typeof content === "number") return `Value: ${content}`;
+    return `Status: ${content}`;
+};
+console.log(JSON.stringify(["hello", "world"]))
+// Process the inputs according to the requirements
+// Call the functions and print the results
+let input1: string | string[] = firstInput.startsWith('[') ?  : firstInput;
+console.log(input1)
+console.log(processData(input1))
+let input2: number | boolean = ["true", "false"].includes(secondInput) ? Boolean(secondInput) : Number(secondInput);
+console.log(formatMessage(input2))

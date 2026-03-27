@@ -603,3 +603,36 @@ displayMessage(404);       // Works with number
 ```
 
 Union types provide type safety while maintaining flexibility - TypeScript ensures you only use values that match one of the specified types, preventing runtime errors from unexpected data types.
+
+### Working with Union Types:
+
+When you work with union types, TypeScript enforces an important safety rule: you can only access properties and methods that exist on **all types** in a union. This prevents runtime errors but means you need special techniques to access type-specific features.
+
+#### Basic Syntax:
+
+Consider a function that accepts either a string or an array of strings. Both types have a `length` property, so you can safely access it:
+
+```ts
+function getLength(input: string | string[]): number {
+  return input.length; // Safe - both types have length
+}
+```
+
+#### Handling Distinct type Properties:
+
+However, if you try to use a method that only exists on one type, TypeScript will show an error. To safely access type-specific members, you need a **type guard**, which is a runtime check that narrows the type:
+
+
+```ts
+function processInput(input: string | string[]): void {
+  if (typeof input === "string") {
+    // TypeScript knows input is a string here
+    console.log(input.toUpperCase());
+  } else {
+    // TypeScript knows input is string[] here
+    console.log(input.join(", "));
+  }
+}
+```
+
+The `typeof` operator is one of the most common type guards. After the check, TypeScript automatically narrows the type within each branch, giving you full access to type-specific properties and methods while maintaining complete type safety.
