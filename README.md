@@ -866,3 +866,72 @@ console.log(getBookInfo(textbook))  // TypeScript Handbook by Microsoft - 450 pa
 console.log(getMovieInfo(film)) // Inception directed by Christopher Nolan (148 min)
 console.log(novel.isAvailable)  // true
 ```
+
+### Introduction to Interfaces:
+
+Interfaces serve the **same fundamental purpose as type aliases for objects** but use a different syntax and offer <i>unique capabilities</i>.
+
+An interface is declared using the `interface` keyword followed by the interface name and the object structure in curly braces:
+
+### Basic Syntax:
+
+```ts
+interface Animal {
+  name: string;
+  sound: string;
+}
+
+let dog: Animal = {
+  name: "Buddy",
+  sound: "Woof"
+};
+```
+
+The syntax is clean and straightforward - you simple list the properties and their types within the interface body. Once defined, you can use the interface name as the type annotation anywhere in your code, just like with type aliases.
+
+#### Example of Usage:
+
+```ts
+// Create the Pet interface
+interface Pet {
+    name: string,
+    species: string,
+    age: number,
+    isVaccinated: boolean
+};
+
+// Create the Vehicle interface
+interface Vehicle {
+    make: string,
+    model: string,
+    year: number
+};
+
+// Create the variables using your interfaces
+let myDog: Pet = {
+    name: "Buddy",
+    species: "Golden Retriever",
+    age: 3,
+    isVaccinated: true
+};
+let myCat: Pet = {
+    name: "Whiskers",
+    species: "Persian",
+    age: 2,
+    isVaccinated: false
+};
+let myCar: Vehicle = {
+    make: "Toyota",
+    model: "Camry",
+    year: 2022
+};
+// Create the describePet function
+function describePet(pet: Pet): string { return `${pet.name} is a ${pet.age}-year-old ${pet.species}`; }
+// Create the getVehicleInfo function
+function getVehicleInfo(vehicle: Vehicle): string { return `${vehicle.year} ${vehicle.make} ${vehicle.model}`; }
+// Print the required outputs
+console.log(describePet(myDog))     // Buddy is a 3-year-old Golden Retriever
+console.log(describePet(myCat))     // Whiskers is a 2-year-old Persian
+console.log(getVehicleInfo(myCar))  // 2022 Toyota Camry
+console.log(myDog.isVaccinated)     // true
+```
