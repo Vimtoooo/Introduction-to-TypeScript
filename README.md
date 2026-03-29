@@ -793,3 +793,76 @@ console.log(student.studentId)  // 12345
 console.log(course.title)       // "Introduction to TypeScript"
 console.log(course.credits)     // 3
 ```
+
+### Type Aliases for Objects:
+
+TypeScript allows you to create a **type alias** that defines a reusable shape for objects.
+
+A type alias uses the `type` keyword to create a named definition for an object structure. Once defined, you can use this alias anywhere you need that specific object shape:
+
+#### Basic Syntax:
+
+```ts
+type Product = {
+  name: string;
+  price: number;
+  inStock: boolean;
+};
+
+let laptop: Product = {
+  name: "Gaming Laptop",
+  price: 1299,
+  inStock: true
+};
+
+let phone: Product = {
+  name: "Smartphone",
+  price: 699,
+  inStock: false
+};
+```
+
+#### Example of Usage:
+
+```ts
+// Create type aliases for Book and Movie
+type Book = {
+    title: string,
+    author: string,
+    pages: number,
+    isAvailable: boolean
+};
+type Movie = {
+    title: string,
+    director: string,
+    duration: number,
+    rating: string
+};
+// Create variables using the type aliases
+let novel: Book = {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    pages: 180,
+    isAvailable: true
+};
+let textbook: Book = {
+    title: "TypeScript Handbook",
+    author: "Microsoft",
+    pages: 450,
+    isAvailable: false
+};
+let film: Movie = {
+    title: "Inception",
+    director: "Christopher Nolan",
+    duration: 148,
+    rating: "PG-13"
+};
+// Create functions to get information
+function getBookInfo(book: Book): string { return `${book.title} by ${book.author} - ${book.pages} pages`; }
+function getMovieInfo(movie: Movie): string { return `${movie.title} directed by ${movie.director} (${movie.duration} min)`; }
+// Print the required outputs
+console.log(getBookInfo(novel))     // The Great Gatsby by F. Scott Fitzgerald - 180 pages
+console.log(getBookInfo(textbook))  // TypeScript Handbook by Microsoft - 450 pages
+console.log(getMovieInfo(film)) // Inception directed by Christopher Nolan (148 min)
+console.log(novel.isAvailable)  // true
+```
