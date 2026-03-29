@@ -873,7 +873,7 @@ Interfaces serve the **same fundamental purpose as type aliases for objects** bu
 
 An interface is declared using the `interface` keyword followed by the interface name and the object structure in curly braces:
 
-### Basic Syntax:
+#### Basic Syntax:
 
 ```ts
 interface Animal {
@@ -935,3 +935,39 @@ console.log(describePet(myCat))     // Whiskers is a 2-year-old Persian
 console.log(getVehicleInfo(myCar))  // 2022 Toyota Camry
 console.log(myDog.isVaccinated)     // true
 ```
+
+### Interfaces Vs Type Aliases:
+
+Now that we know about both of these TypeScript features that we can use for object definition, it's important to understand when to use each approach. While they serve similar purposes, there are key differences that can influence your choice.
+
+#### Similarities:
+
+Both interfaces and type aliases can define the structure of objects with the same level of type safety. You can uuse either approach to specify required properties, optional properties, and readonly properties. Both also support extending or combining with other types.
+
+#### Key Difference - Declaration Merging:
+
+Tho most significant difference is that interfaces support **declaration merging**, while type aliases do not. This means you can declare the same interface multiple times, and TypeScript will automatically merge all declarations into a single interface:
+
+```ts
+interface User {
+  name: string;
+}
+
+interface User {
+  age: number;
+}
+
+// TypeScript merges these into:
+// interface User {
+//   name: string;
+//   age: number;
+// }
+```
+
+If you try the same approach with type aliases, TypeScript will throw an error about duplicate identifiers. This merging capability makes interfaces particularly useful when working with libraries or when you need to extend existing type definitions across different parts of your codebase.
+
+#### When to Choose:
+
+Use **interfaces** when defining object shapes that might need to be extended or merged later.
+
+Use **type aliases** when you need more complex type operations like unions, intersections, or when working with primitive types.
