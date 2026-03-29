@@ -752,3 +752,44 @@ type User = {
 ```
 
 This compositional approach makes your code more expressive and easier to understand, rather than seeing generic types like `string` or `number`. Other developers will immediately understand the intended purpose through meaningful type names like `Email` and `Phone`.
+
+## Typing Objects and Interfaces:
+
+### Inline Object Type Annotations:
+
+Sometimes you need to define the structure of an object for a single, specific use case. Instead of creating a reusable type alias or interface, TypeScript allows you to define the object's shape directly where you declare the variable. This is called an **inline object type annotation**.
+
+#### Basic Syntax:
+
+The syntax uses curly braces to describe the object's properties and their types right in the variable declaration:
+
+```ts
+let user: { name: string; id: number } = {
+  name: "Alice",
+  id: 123
+};
+```
+
+This approach is pperfect for one-off object structure that you don't plan to reuse elsewhere in your code.
+
+#### Example of Usage:
+
+```ts
+// Create the student variable with inline object type annotation
+let student: { name: string, studentId: number, isEnrolled: boolean } = {
+    name: "Sarah Johnson",
+    studentId: 12345,
+    isEnrolled: true
+};
+// Create the course variable with inline object type annotation
+let course: { title: string, credits: number, instructor: string } = {
+    title: "Introduction to TypeScript",
+    credits: 3,
+    instructor: "Dr. Smith"
+};
+// Print the required information
+console.log(student.name)       // "Sarah Johnson"
+console.log(student.studentId)  // 12345
+console.log(course.title)       // "Introduction to TypeScript"
+console.log(course.credits)     // 3
+```
