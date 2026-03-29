@@ -971,3 +971,107 @@ If you try the same approach with type aliases, TypeScript will throw an error a
 Use **interfaces** when defining object shapes that might need to be extended or merged later.
 
 Use **type aliases** when you need more complex type operations like unions, intersections, or when working with primitive types.
+
+### Optional & Readonly Properties:
+
+TypeScript provides two powerful modifiers that give you this control: the **optional property modifier** and the **readonly modifier**.
+
+#### Basic Syntax:
+
+The `?` symbol makes a property optional, meaning it doesn't have to be present when creating an object. This is useful for properties that might not always be needed:
+
+```ts
+interface User {
+  name: string;
+  email?: string;  // Optional property
+}
+
+let user1: User = { name: "Alice" };  // Valid - email is optional
+let user2: User = { name: "Bob", email: "bob@example.com" };  // Also valid
+```
+
+In the other hand, the `readonly` modifier prevents a **property from being changed** after the object is created. This is perfect for properties that should remain constant, like unique identifiers:
+
+```ts
+interface Product {
+  readonly id: number;  // Cannot be changed after creation
+  name: string;
+}
+
+let product: Product = { id: 1, name: "Laptop" };
+product.name = "Gaming Laptop";  // Valid
+// product.id = 2;  // Error: Cannot assign to 'id' because it is readonly
+```
+
+You can combine both modifiers on the same interface, and these modifiers work identically with both interfaces and type aliases, giving you precise control over your object structures.
+
+#### Example of Usage:
+
+```ts
+// Create the Book interface
+interface Book {
+    title: string,
+    readonly isbn: string,
+    subtitle?: string,
+    pages: number,
+    readonly publishedYear: number,
+    genre?: string
+};
+
+// Create the Magazine interface
+interface Magazine {
+    name: string,
+    readonly issueNumber: number,
+    topic?: string,
+    monthlySubscription: boolean
+};
+
+// Create the variables using your interfaces
+let novel: Book = {
+    title: "1984",
+    isbn: "978-0-452-28423-4",
+    pages: 328,
+    publishedYear: 1949
+};
+let cookbook: Book = {
+    title: "The Joy of Cooking",
+    isbn: "978-0-7432-4626-2",
+    subtitle: "All About Baking",
+    pages: 1132,
+    publishedYear: 2006,
+    genre: "Cooking"
+};
+let techMag: Magazine = {
+    name: "Tech Today",
+    issueNumber: 45,
+    monthlySubscription: true
+};
+let scienceMag: Magazine = {
+    name: "Science Weekly",
+    issueNumber: 12,
+    topic: "Climate Change",
+    monthlySubscription: false
+};
+// Create the getBookDetails function
+function getBookDetails(book: Book): string { return `${book.title} - ${book.pages} pages`; }
+// Create the getMagazineInfo function
+function getMagazineInfo(mag: Magazine): string { return `${mag.name} Issue #${mag.issueNumber}`; }
+// Print the required outputs
+console.log(getBookDetails(novel))
+console.log(getBookDetails(cookbook))
+console.log(getMagazineInfo(techMag))
+console.log(getMagazineInfo(scienceMag))
+console.log(novel.isbn)
+console.log(techMag.monthlySubscription)
+```
+
+##### Result:
+
+```
+1984 - 328 pages
+The Joy of Cooking - 1132 pages
+Tech Today Issue #45
+Science Weekly Issue #12
+978-0-452-28423-4
+true
+```
