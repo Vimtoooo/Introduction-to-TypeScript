@@ -1075,3 +1075,112 @@ Science Weekly Issue #12
 978-0-452-28423-4
 true
 ```
+
+### Extending Interfaces and Types:
+
+Instead of duplicating code, TYpeScript provides powerful mechanisms to build new types based on existing ones through **inheritance**.
+
+For interfaces, you can use the `extends` keyword to create a new interface that inherits all properties from a base interface:
+
+#### Basic Syntax:
+
+```ts
+interface Vehicle {
+  brand: string;
+  year: number;
+}
+
+interface Car extends Vehicle {
+  doors: number;
+}
+
+// Car now has: brand, year, and doors
+```
+
+For type aliases, you achieve the same result using **intersection types** with the `&` operator:
+
+```ts
+type Vehicle = {
+  brand: string;
+  year: number;
+};
+
+type Car = Vehicle & {
+  doors: number;
+};
+
+// Car has the same properties as the interface example
+```
+
+Both approaches create new types that contain all the properties from the base type plus any additional properties you define. This promotes code reusability and helps maintain consistency across related types in your application.
+
+#### Example of Usage:
+
+```ts
+// Create the Employee interface
+interface Employee {
+    id: number,
+    name: string,
+    department: string
+};
+
+// Create the Manager interface that extends Employee
+interface Manager extends Employee {
+    teamSize: number,
+    budget: number
+};
+
+// Create the Contact type alias
+type Contact = {
+    email: string,
+    phone: string
+};
+
+// Create the Developer type alias using intersection types
+type Developer = Employee & Contact & { programmingLanguages: string[], yearsExperience: number };
+
+// Create the teamLead variable of type Manager
+const teamLead: Manager = {
+    id: 101,
+    name: "Alice Johnson",
+    department: "Engineering",
+    teamSize: 8,
+    budget: 250000
+};
+
+// Create the softwareDev variable of type Developer
+const softwareDev: Developer = {
+    id: 102,
+    name: "Bob Smith",
+    department: "Engineering",
+    email: "bob.smith@company.com",
+    phone: "555-0123",
+    programmingLanguages: ["TypeScript", "Python", "Java"],
+    yearsExperience: 5
+};
+
+// Create the getManagerSummary function
+function getManagerSummary(manager: Manager): string {
+    return `${manager.name} manages ${manager.teamSize} people with a budget of $${manager.budget}`;
+}
+
+// Create the getDeveloperSkills function
+function getDeveloperSkills(dev: Developer): string {
+    return `${dev.name} knows ${dev.programmingLanguages.join(", ")} (${dev.yearsExperience} years experience)`;
+}
+
+// Print the required outputs
+console.log(getManagerSummary(teamLead))
+console.log(getDeveloperSkills(softwareDev))
+console.log(teamLead.department)
+console.log(softwareDev.email)
+```
+
+##### Result:
+
+```
+Alice Johnson manages 8 people with a budget of $250000
+Bob Smith knows TypeScript, Python, Java (5 years experience)
+Engineering
+bob.smith@company.com
+```
