@@ -102,4 +102,14 @@ const myPet: Cat = {
     hasNineLives: false
 };
 
-console.log(myPet.name)
+// console.log(myPet.name)
+
+interface User {
+    readonly id: number
+};
+
+const myUser: User = {
+    id: 1
+};
+
+// myUser.id = 2 // Error: id is readonly and cannot be altered!

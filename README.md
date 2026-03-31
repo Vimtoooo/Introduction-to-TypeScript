@@ -1236,15 +1236,15 @@ const myCalculator: Calculator = {
     model: "FX-991EX",
     isScientific: true,
     add(n1: number, n2: number): number { return n1 + n2; },
-    getInfo(): string { return `${myCalculator.brand} ${myCalculator.model}`; }
+    getInfo(): string { return `${this.brand} ${this.model}`; }
 };
 // Create the savingsAccount variable of type BankAccount
 const savingsAccount: BankAccount = {
     accountNumber: "SAV-12345",
     balance: 1500,
     isActive: true,
-    deposit(val: number): void { savingsAccount.balance += val; },
-    getBalance(): number { return savingsAccount.balance; }
+    deposit(val: number): void { this.balance += val; },
+    getBalance(): number { return this.balance; }
 }
 // Print all the required outputs
 console.log(myCalculator.getInfo())
@@ -1263,4 +1263,195 @@ Casio FX-991EX
 1500
 1750
 true
+```
+
+### Recap - Typing Methods and Interfaces:
+
+Let's begin our recap for this topic:
+
+* **Inline Object Type Annotations**: If you want to initialize only one object and utilize type annotation, this approach would come in handy! Instead of making a type alias or an interface which will be used only once, you can apply these concepts inside the type annotation for quick and easy creation:
+
+```ts
+let user: { name: string; id: number } = {
+  name: "Alice",
+  id: 123
+};
+```
+
+* **Type Aliases for Objects**: Type aliases allow you to define a particular and custom type, which defines a reusable shape for other objects that will consume those blueprints:
+
+```ts
+type Product = {
+  name: string;
+  price: number;
+  inStock: boolean;
+};
+
+const juiceBox: Product = {
+  name: "banana juice",
+  price: 1.19,
+  inStock: true
+};
+```
+
+* **Interfaces**: Similar to type aliases, but are initialized and manipulated with using different syntax:
+
+```ts
+interface Employee {
+  id: number,
+  name: string,
+  age: number
+};
+
+const myEmployee: Employee = {
+  id: 1,
+  name: "Stuart",
+  age: 25
+};
+```
+
+* **Optional & Readonly Properties**: Use the `?` sign for optional properties, while the `readonly` keyword should be used for only getting a particular value from this property:
+
+```ts
+interface User {
+  readonly id: number,
+  name: string,
+  email?: string  // Optional property
+};
+
+const myUser: User = {
+  id: 1,
+  name: "User1",
+};
+```
+
+* **Extending Interfaces & Types**: For `interfaces`, use the `extends` keyword for the allowance of **inheritance**, in the other hand, type aliases should use `&` for intersections:
+
+```ts
+// Interfaces:
+interface Vehicle {
+  brand: string;
+  year: number;
+}
+
+interface Car extends Vehicle {
+  doors: number;
+}
+
+// Type Aliases:
+type Vehicle = {
+  brand: string;
+  year: number;
+};
+
+type Car = Vehicle & {
+  doors: number;
+};
+```
+
+* **Methods in Interfaces & Type Aliases**: You can always add methods inside both interfaces and type aliases!
+
+```ts
+// Interfaces:
+interface Person {
+  name: string;
+  age: number;
+  greet(): string;  // Method signature
+}
+
+let user: Person = {
+  name: "Alice",
+  age: 30,
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+};
+
+// Type Aliases:
+type User = {
+  username: string,
+  password: string,
+  enterInternet(username: string, password: string): boolean
+};
+
+const myUser: User = {
+  username: "LobsterMan",
+  password: "blablabla",
+  enterInternet(username: String, password: string): boolean {
+    return username.length > 0 && password.length > 0 ? true : false;
+  };
+};
+```
+
+#### Example of a Program:
+
+```ts
+// Create the Computer interface with the required properties and methods
+interface Computer {
+    readonly id: number,
+    brand: string,
+    ramInGB?: number,
+    isLaptop: boolean,
+    boot(): void
+};
+// Create the Server interface with the required properties and methods
+interface Server {
+    readonly hostname: string,
+    operatingSystem: string,
+    maxConnections?: number,
+    isOnline: boolean,
+    restart(): void,
+    getStatus(): string
+};
+// Create the workstation, laptop, and webServer variables
+const workstation: Computer = {
+    id: 1001,
+    brand: "Dell",
+    ramInGB: 16,
+    isLaptop: false,
+    boot(): void { console.log("Dell workstation is booting up..."); }
+};
+const laptop: Computer = {
+    id: 1002,
+    brand: "MacBook",
+    isLaptop: true,
+    boot(): void { console.log("MacBook laptop is starting..."); }
+};
+const webServer: Server = {
+    hostname: "web-01",
+    operatingSystem: "Ubuntu",
+    maxConnections: 1000,
+    isOnline: true,
+    restart(): void { console.log("Restarting web-01 server..."); },
+    getStatus(): string { return "web-01 is online"; }
+}
+// Create the checkComputerSpecs and getServerInfo functions
+function checkComputerSpecs(comp: Computer): string {
+    return `${comp.brand} ${comp.isLaptop ? "laptop" : "desktop"}`;
+}
+function getServerInfo(server: Server): string {
+    return `${server.hostname} runs ${server.operatingSystem}`;
+}
+// Print all the required outputs
+workstation.boot()
+laptop.boot()
+console.log(checkComputerSpecs(workstation))
+console.log(checkComputerSpecs(laptop))
+console.log(webServer.getStatus())
+console.log(getServerInfo(webServer))
+console.log(workstation.id)
+webServer.restart()
+```
+
+##### Result:
+
+```
+Dell workstation is booting up...
+MacBook laptop is starting...
+Dell desktop
+MacBook laptop
+web-01 is online
+web-01 runs Ubuntu
+1001
+Restarting web-01 server...
 ```
