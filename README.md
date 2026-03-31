@@ -1184,3 +1184,83 @@ Bob Smith knows TypeScript, Python, Java (5 years experience)
 Engineering
 bob.smith@company.com
 ```
+
+### Adding Methods to Interfaces:
+
+TypeScript interfaces allow you to define these behaviors by including **method signatures** alongside property definitions.
+
+A method signature in an interface specifies the name of a method, its parameters, and its return type, without providing the actual implementation. This creates a contract that any object conforming to the interface must fulfill:
+
+#### Basic Syntax:
+
+```ts
+interface Person {
+  name: string;
+  age: number;
+  greet(): string;  // Method signature
+}
+
+let user: Person = {
+  name: "Alice",
+  age: 30,
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+};
+```
+
+The method signature `greet(): string` tells TypeScript that any object implementing the `Person` interface must have a `greet` method that takes no parameters and returns a string as a result. The actual implementation can vary between different objects, but the signature must match exactly.
+
+#### Example of Usage:
+
+```ts
+// Create the Calculator interface with the required properties and methods
+interface Calculator {
+    brand: string,
+    model: string,
+    isScientific: boolean,
+    add(n1: number, n2: number): number,
+    getInfo(): string
+};
+// Create the BankAccount interface with the required properties and methods
+interface BankAccount {
+    accountNumber: string,
+    balance: number,
+    isActive: boolean,
+    deposit(val: number): void,
+    getBalance(): number
+};
+// Create the myCalculator variable of type Calculator
+const myCalculator: Calculator = {
+    brand: "Casio",
+    model: "FX-991EX",
+    isScientific: true,
+    add(n1: number, n2: number): number { return n1 + n2; },
+    getInfo(): string { return `${myCalculator.brand} ${myCalculator.model}`; }
+};
+// Create the savingsAccount variable of type BankAccount
+const savingsAccount: BankAccount = {
+    accountNumber: "SAV-12345",
+    balance: 1500,
+    isActive: true,
+    deposit(val: number): void { savingsAccount.balance += val; },
+    getBalance(): number { return savingsAccount.balance; }
+}
+// Print all the required outputs
+console.log(myCalculator.getInfo())
+console.log(myCalculator.add(15, 27))
+console.log(savingsAccount.getBalance())
+savingsAccount.deposit(250)
+console.log(savingsAccount.getBalance())
+console.log(myCalculator.isScientific)
+```
+
+##### Result:
+
+```
+Casio FX-991EX
+42
+1500
+1750
+true
+```
