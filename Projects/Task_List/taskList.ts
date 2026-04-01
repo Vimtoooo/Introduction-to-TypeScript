@@ -53,14 +53,46 @@ function addTask(taskList: Task[], title: string): Task[] {
     return newTaskList;
 }
 
+function changeTaskStatus(taskList: Task[], taskId: number, newStatus: 'todo' | 'in-progress' | 'done'): Task[] {
+    
+    // Create two variables: one for appending task objects into the array, the other indicates whether the id has been found
+    let modifiedTaskList: Task[] = [];
+    let foundId: boolean = false;
+    
+    // Iterate through every task inside the taskList array
+    taskList.forEach(task => {
+        // Retrieve the current id of that task
+        let currentTask: Task = {
+            id: task.id,
+            title: task.title,
+            status: task.status
+        };
+
+        // If the current task id matches the inserted id to allocate, update the status to the inserted one and set foundId to true
+        if (currentTask.id === taskId) {
+            currentTask.status = newStatus;
+            foundId = true;
+        }
+
+        // After every task search, push the current task into the modifiedTaskList array
+        modifiedTaskList.push(currentTask);
+    });
+
+    // If the id has not been found, return the original taskList array
+    if (!foundId) return taskList;
+
+    // Else, return the modified taskList array
+    return modifiedTaskList;
+}
+
 
 // Testing & Printing to the Console:
-let initialTasks: Task[] = [firstTask, secondTask];
-let updatedTasks: Task[] = addTask(initialTasks, "Review code changes");
+let TestTasks: Task[] = [firstTask, secondTask, thirdTask];
+let progressTasks: Task[] = changeTaskStatus(TestTasks, 1, "in-progress");
+let completedTasks: Task[] = changeTaskStatus(progressTasks, 2, "done");
 
-console.log(initialTasks.length)
-console.log(updatedTasks.length)
-let lastTask: Task = updatedTasks.at(-1)!;
-console.log(getTaskInfo(lastTask))
-console.log(lastTask.title)
-console.log(lastTask.status)
+console.log(getTaskInfo(TestTasks.at(0)!))
+console.log(getTaskInfo(progressTasks.at(0)!))
+console.log(getTaskInfo(completedTasks.at(1)!))
+console.log(TestTasks.at(0)?.status)
+console.log(completedTasks.at(1)?.status)
