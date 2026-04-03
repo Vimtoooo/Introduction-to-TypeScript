@@ -85,14 +85,23 @@ function changeTaskStatus(taskList: Task[], taskId: number, newStatus: 'todo' | 
     return modifiedTaskList;
 }
 
+function listTaskByStatus(taskList: Task[], status: 'todo' | 'in-progress' | 'done'): Task[] {
+    // Create a filtered array of Task type, where we only keep tasks that match the specified task
+    const filteredTaskList: Task[] = taskList.filter(task => task.status === status);
+    return filteredTaskList;
+}
+
 
 // Testing & Printing to the Console:
-let TestTasks: Task[] = [firstTask, secondTask, thirdTask];
-let progressTasks: Task[] = changeTaskStatus(TestTasks, 1, "in-progress");
-let completedTasks: Task[] = changeTaskStatus(progressTasks, 2, "done");
+let mixedTasks: Task[] = [firstTask, secondTask, thirdTask];
+let todoTasks: Task[] = listTaskByStatus(mixedTasks, 'todo');
+let inProgressTasks: Task[] = listTaskByStatus(mixedTasks, 'in-progress');
+let doneTasks: Task[] = listTaskByStatus(mixedTasks, 'done');
 
-console.log(getTaskInfo(TestTasks.at(0)!))
-console.log(getTaskInfo(progressTasks.at(0)!))
-console.log(getTaskInfo(completedTasks.at(1)!))
-console.log(TestTasks.at(0)?.status)
-console.log(completedTasks.at(1)?.status)
+console.log(mixedTasks.length)
+console.log(todoTasks.length)
+console.log(inProgressTasks.length)
+console.log(doneTasks.length)
+console.log(getTaskInfo(todoTasks[0]!))
+console.log(getTaskInfo(inProgressTasks[0]!))
+console.log(getTaskInfo(doneTasks[0]!))
