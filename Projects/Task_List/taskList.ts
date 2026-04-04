@@ -105,14 +105,25 @@ let mixedTasks: Task[] = [firstTask, secondTask, thirdTask];
 let todoTasks: Task[] = listTaskByStatus(mixedTasks, 'todo');
 let inProgressTasks: Task[] = listTaskByStatus(mixedTasks, 'in-progress');
 let doneTasks: Task[] = listTaskByStatus(mixedTasks, 'done');
-
 let sampleTasks: Task[] = [
     {id: 101, title: "Design user interface", status: 'todo'},
     {id: 102, title: "Implement authentication", status: 'in-progress'},
     {id: 103, title: "Deploy to production", status: 'done'}
 ];
 
-printTaskSummary(firstTask)
-printTaskSummary(sampleTasks[1]!)
-printAllTaskSummaries(sampleTasks)
-printTaskSummary(doneTasks[doneTasks.length - 1]!)
+let projectTasks: Task[] = [
+    {id: 201, title: "Setup development environment", status: 'done'},
+    {id: 202, title: "Create project structure", status: 'todo'}
+];
+
+let expandedTasks: Task[] = addTask(projectTasks, "Write documentation");
+let updatedProjectTasks: Task[] = changeTaskStatus(expandedTasks, 202, 'in-progress');
+let finalTasks: Task[] = changeTaskStatus(updatedProjectTasks, 3, 'done');
+let completedProjectTasks: Task[] = listTaskByStatus(finalTasks, 'done');
+
+console.log(projectTasks.length)
+console.log(finalTasks.length)
+console.log(completedProjectTasks.length)
+printTaskSummary(completedProjectTasks[0]!)
+printTaskSummary(completedProjectTasks[completedProjectTasks.length - 1]!)
+printAllTaskSummaries(finalTasks)
