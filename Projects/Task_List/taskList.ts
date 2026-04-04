@@ -91,6 +91,14 @@ function listTaskByStatus(taskList: Task[], status: 'todo' | 'in-progress' | 'do
     return filteredTaskList;
 }
 
+function printTaskSummary(task: Task): void {
+    console.log(`ID: ${task.id}, Title: ${task.title}, Status: ${task.status}`);
+}
+
+function printAllTaskSummaries(taskList: Task[]): void {
+    for (let task of taskList) { printTaskSummary(task); }
+}
+
 
 // Testing & Printing to the Console:
 let mixedTasks: Task[] = [firstTask, secondTask, thirdTask];
@@ -98,10 +106,13 @@ let todoTasks: Task[] = listTaskByStatus(mixedTasks, 'todo');
 let inProgressTasks: Task[] = listTaskByStatus(mixedTasks, 'in-progress');
 let doneTasks: Task[] = listTaskByStatus(mixedTasks, 'done');
 
-console.log(mixedTasks.length)
-console.log(todoTasks.length)
-console.log(inProgressTasks.length)
-console.log(doneTasks.length)
-console.log(getTaskInfo(todoTasks[0]!))
-console.log(getTaskInfo(inProgressTasks[0]!))
-console.log(getTaskInfo(doneTasks[0]!))
+let sampleTasks: Task[] = [
+    {id: 101, title: "Design user interface", status: 'todo'},
+    {id: 102, title: "Implement authentication", status: 'in-progress'},
+    {id: 103, title: "Deploy to production", status: 'done'}
+];
+
+printTaskSummary(firstTask)
+printTaskSummary(sampleTasks[1]!)
+printAllTaskSummaries(sampleTasks)
+printTaskSummary(doneTasks[doneTasks.length - 1]!)
