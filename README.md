@@ -1485,3 +1485,70 @@ console.log(pendingStatus)  // 0
 ```
 
 This creates three constants: `Status.Pending` holding 0, `Status.Processing` which equals to 1, and `Status.Complete` with the number 2 designated with it. You can also explicitly set the starting value, and subsequent members will continue incrementing from that point.
+
+### Using Numeric Enums:
+
+You can use an enum as a type annotation just like any other TypeScript type! When you specify an enum as a parameter type, TypeScript ensures that only valid enum values can be passed to that function:
+
+#### Basic Syntax:
+
+```ts
+function processUser(role: UserRole): void {
+  if (role === UserRole.Admin) {
+    console.log("Full access granted");
+  } else if (role === UserRole.Editor) {
+    console.log("Edit access granted");
+  } else {
+    console.log("View access only");
+  }
+}
+```
+
+However, it is key that you mention the name of the enum type, and not directly insert the `enum` keyword inside the type annotation for the parameter, which would not work because the `enum` keyword is not a static type, but a real object that exists at runtime.
+
+This approach provides excellent type safety - TypeScript will catch any attempts to pass invalid values, and your code editor will offer autocompletion for the available enum members. You can call this function using `processUser(UserRole.Admin)` or ever `processUser(0)`, since numeric enums accept their underlying numeric values.
+
+#### Example of Usage:
+
+```ts
+// Enums Object
+enum UserRole {
+    Admin,
+    Editor,
+    Viewer
+}
+
+const adminRole = UserRole.Admin;
+const editorRole = UserRole.Editor;
+const viewerRole = UserRole.Viewer;
+
+// Create the checkPermissions function
+function checkPermissions(role: UserRole): void {
+    if (role === UserRole.Admin) console.log("Full access granted");
+    else if (role === UserRole.Editor) console.log("Edit access granted");
+    else console.log("View access only");
+}
+
+// Create currentUser variable
+const currentUser: UserRole = UserRole.Editor;
+
+// Create guestUser variable
+const guestUser: UserRole = 2;
+
+// Call checkPermissions with the required parameters
+checkPermissions(adminRole)
+checkPermissions(currentUser)
+checkPermissions(guestUser)
+checkPermissions(UserRole.Admin)
+checkPermissions(0)
+```
+
+##### Results:
+
+```
+Full access granted
+Edit access granted
+View access only
+Full access granted
+Full access granted
+```

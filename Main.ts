@@ -113,3 +113,21 @@ const myUser: User = {
 };
 
 // myUser.id = 2 // Error: id is readonly and cannot be altered!
+
+// Using Numeric Enums:
+
+enum UserRole {
+    Admin,
+    Editor,
+    Viewer
+};
+
+function processUser(role: UserRole): void {
+  if (role === UserRole.Admin) {
+    console.log("Full access granted");
+  } else if (role === UserRole.Editor) {
+    console.log("Edit access granted");
+  } else {
+    console.log("View access only");
+  }
+}
