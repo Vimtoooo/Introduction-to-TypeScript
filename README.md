@@ -1455,3 +1455,33 @@ web-01 runs Ubuntu
 1001
 Restarting web-01 server...
 ```
+
+## Enums:
+
+### What is a Numeric Enum?
+
+TypeScript enums provide a way to give meaningful names to a set of related numeric values. Instead of using magic numbers throughout your code, enums let you create a collection of named constants that make your code more readable and maintainable.
+
+#### Basic Syntax:
+
+A numeric enum is declared using the `enum` keyword. By default, TypeScript automatically assigns numeric values starting from 0 and incrementing by 1 for each member:
+
+```ts
+enum Status {
+  Pending,    // 0
+  Processing, // 1
+  Complete    // 2
+};
+```
+
+You can also designate variables with the corresponding property names so that they can store the number values:
+
+```ts
+const pendingStatus: Status = Status.Pending;
+const ProcessingStatus: Status = Status.Processing;
+const completeStatus: Status = Status.Complete;
+
+console.log(pendingStatus)  // 0
+```
+
+This creates three constants: `Status.Pending` holding 0, `Status.Processing` which equals to 1, and `Status.Complete` with the number 2 designated with it. You can also explicitly set the starting value, and subsequent members will continue incrementing from that point.
