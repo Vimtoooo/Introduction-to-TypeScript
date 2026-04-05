@@ -1516,7 +1516,7 @@ enum UserRole {
     Admin,
     Editor,
     Viewer
-}
+};
 
 const adminRole = UserRole.Admin;
 const editorRole = UserRole.Editor;
@@ -1552,3 +1552,20 @@ View access only
 Full access granted
 Full access granted
 ```
+
+### What is a String Enum?
+
+String enums are declared by explicitly initializing each member with a string value:
+
+#### Basic Syntax:
+
+```ts
+enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT"
+};
+```
+
+Unlike numeric enums that auto-increment, every member in a string enum must be explicitly initialized. The benefit is immediately clear when debugging - instead of seeing mysterious numbers like 0 or in your logs, you'll see descriptive values like `"UP"` or `"DOWN"`.
