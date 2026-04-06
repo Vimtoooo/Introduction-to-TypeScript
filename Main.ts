@@ -84,50 +84,54 @@
 // console.log(formatMessage(input2))
 
 // Interfaces:
-interface Animal {
-    name: string,
-    age: number,
-    species?: string
-};
+// interface Animal {
+//     name: string,
+//     age: number,
+//     species?: string
+// };
 
-// Inheritance with Interfaces:
-interface Cat extends Animal {
-    hasNineLives: boolean
-};
+// // Inheritance with Interfaces:
+// interface Cat extends Animal {
+//     hasNineLives: boolean
+// };
 
-const myPet: Cat = {
-    name: "Bob",
-    age: 3,
-    species: "Persian",
-    hasNineLives: false
-};
+// const myPet: Cat = {
+//     name: "Bob",
+//     age: 3,
+//     species: "Persian",
+//     hasNineLives: false
+// };
 
-// console.log(myPet.name)
+// // console.log(myPet.name)
 
-interface User {
-    readonly id: number
-};
+// interface User {
+//     readonly id: number
+// };
 
-const myUser: User = {
-    id: 1
-};
+// const myUser: User = {
+//     id: 1
+// };
 
 // myUser.id = 2 // Error: id is readonly and cannot be altered!
 
 // Using Numeric Enums:
 
-enum UserRole {
-    Admin,
-    Editor,
-    Viewer
-};
+// enum UserRole {
+//     Admin = "Admin",
+//     Editor = "Editor",
+//     Viewer = "Viewer"
+// };
 
-function processUser(role: UserRole): void {
-  if (role === UserRole.Admin) {
-    console.log("Full access granted");
-  } else if (role === UserRole.Editor) {
-    console.log("Edit access granted");
-  } else {
-    console.log("View access only");
-  }
-}
+// const myRole: UserRole = UserRole.Admin;
+
+// function processUser(role: UserRole): void {
+//   if (role === UserRole.Admin) {
+//     console.log("Full access granted");
+//   } else if (role === UserRole.Editor) {
+//     console.log("Edit access granted");
+//   } else {
+//     console.log("View access only");
+//   }
+// }
+
+// processUser(myRole);

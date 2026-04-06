@@ -1569,3 +1569,20 @@ enum Direction {
 ```
 
 Unlike numeric enums that auto-increment, every member in a string enum must be explicitly initialized. The benefit is immediately clear when debugging - instead of seeing mysterious numbers like 0 or in your logs, you'll see descriptive values like `"UP"` or `"DOWN"`.
+
+### Using String Enums:
+
+String enums work particularly well as as function parameters because they provide clear, readable values while maintaining type safety.
+
+Here's how you can use a string enum in a function:
+
+#### Basic Syntax:
+
+```ts
+function move(direction: Direction): void {
+  console.log(`Moving ${direction.toLowerCase()}...`);
+}
+```
+
+When you call this function, TypeScript will only accept the predefined enum values. You can call it using `move(Direction.Up)`, which will output `"Moving up..."`. Your code editor will provide autocompletion for the available enum members, and TypeScript will catch any attempts to pass invalid direction values.
+
