@@ -1617,3 +1617,54 @@ function identity(arg: any): any {
 ```
 
 While this function works, using `any` creates a significant problem: yyou lose all type safety. When you call `identity("Hello")`, TypeScript can't tell you that the result is a string. It only knows the result is `any`, which means you lose autocompletion, type checking and all the benefits TypeScript provides.
+
+### Creating Generic Identity Functions:
+
+Here's the syntax for a generic function using the classic identity example:
+
+#### Basic Syntax:
+
+```ts
+function identity<T>(arg: T): T {
+  return arg;
+}
+```
+
+#### Breakdown:
+
+The `<T>` after the function name declares a type parameter called `T`. This `T` acts as a placeholder that can represent any type. When you use this function, TypeScript will replace `T` with the actual type you're working with.
+
+The beauty of this approach is that it preserves type information. If you call `identity("hello")`, TypeScript knows the return type is a string. If you call `identity(42)`, it'll also know its return type, which would be a   `number`. You get all the flexibility of working with multiply types while keeping full type safety.
+
+By convention, `T` stands for "Type", but you can use any name you want for your type parameter. The important thing is that it creates a relationship between the input and output types of your function.
+
+#### Example of Usage:
+
+```ts
+// Create the generic function wrapInObject
+function wrapInObject<T>(item: T): {value: T} {
+    return {value: item};
+}
+
+// Create the test variables
+const wrappedString = wrapInObject("Hello TypeScript");
+const wrappedNumber = wrapInObject(42);
+const wrappedBoolean = wrapInObject(true);
+
+// Print the outputs
+console.log(wrappedString.value);
+console.log(wrappedNumber.value);
+console.log(wrappedBoolean.value);
+console.log(wrapInObject("Generic").value);
+console.log(wrapInObject(100).value);
+```
+
+##### Results:
+
+```
+Hello TypeScript
+42
+true
+Generic
+100
+```
