@@ -1603,3 +1603,17 @@ enum MixedEnum {
 ```
 
 In this example, `No` and `Maybe` are numeric members, while `Yes` is a string member. TypeScript allows this flexibility, though it's important to note that heterogeneous enums are rarely used in practice and that using JSON Objects would be the modern approach for this situation.
+
+## Generics: A First Look
+
+### The Problem Generics Solve:
+
+Imagine you want to create a function that simply returns whatever value you pass to it - and "identity". In reguler JavaScript, you might write something like this:
+
+```ts
+function identity(arg: any): any {
+  return arg;
+}
+```
+
+While this function works, using `any` creates a significant problem: yyou lose all type safety. When you call `identity("Hello")`, TypeScript can't tell you that the result is a string. It only knows the result is `any`, which means you lose autocompletion, type checking and all the benefits TypeScript provides.
