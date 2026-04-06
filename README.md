@@ -1586,3 +1586,20 @@ function move(direction: Direction): void {
 
 When you call this function, TypeScript will only accept the predefined enum values. You can call it using `move(Direction.Up)`, which will output `"Moving up..."`. Your code editor will provide autocompletion for the available enum members, and TypeScript will catch any attempts to pass invalid direction values.
 
+### Heterogeneous Enums:
+
+TypeScript also supports heterogeneous enums - enums that contain a **mix of both string and numeric members** within the same declaration.
+
+Here's how you can create a heterogeneous enum:
+
+#### Basic Syntax:
+
+```ts
+enum MixedEnum {
+  No = 0,
+  Yes = "YES",
+  Maybe = 1
+};
+```
+
+In this example, `No` and `Maybe` are numeric members, while `Yes` is a string member. TypeScript allows this flexibility, though it's important to note that heterogeneous enums are rarely used in practice and that using JSON Objects would be the modern approach for this situation.
