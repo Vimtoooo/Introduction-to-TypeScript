@@ -1778,3 +1778,90 @@ true
 undefined
 single
 ```
+
+### Generic Interfaces:
+
+Just as you can create generic functions, you can also create generic interfaces. This allows you to define the shape of an object while keeping certain property types flexible and reusable.
+
+#### Basic Syntax:
+
+Here's how you create a generic interface using the same type parameter syntax:
+
+```ts
+interface Container<T> {
+  value: T;
+  isEmpty: boolean;
+}
+```
+
+The `<T>` after the interface name creates a type parameter that can be used throughout the interface definition. In this example, the `value` property will have whatever type you specify when using the interface, while `isEmpty` remains a fixed `boolean` type.
+
+#### Using the Generic Interfaces:
+
+When you sue a generic interface, you specify the concrete type in angle brackets:
+
+```ts
+const stringContainer: Container = {
+  value: "hello",
+  isEmpty: false
+};
+
+const numberContainer: Container = {
+  value: 42,
+  isEmpty: false
+};
+```
+
+#### Example of Usage:
+
+```ts
+// Create the generic Result interface
+interface Result<T> {
+    success: boolean;
+    data: T;
+};
+
+// Create the objects using the Result interface
+const stringResult: Result<string> = {
+    success: true,
+    data: "Operation completed"
+};
+
+const numberResult: Result<number> = {
+    success: true,
+    data: 42
+};
+
+const booleanResult: Result<boolean> = {
+    success: false,
+    data: false
+};
+
+const arrayResult: Result<string[]> = {
+    success: true,
+    data: ["item1", "item2", "item3"]
+};
+
+// Create the generic processResult function
+function processResult<T>(result: Result<T>): string {
+    return result.success ? `Success: ${result.data}` : `Failed: ${result.data}`;
+}
+
+// Print the required outputs
+console.log(processResult(stringResult))
+console.log(processResult(numberResult))
+console.log(processResult(booleanResult))
+console.log(processResult(arrayResult))
+console.log(stringResult.data)
+```
+
+##### Result:
+
+```
+Success: Operation completed
+Success: 42
+Failed: false
+Success: item1,item2,item3
+Operation completed
+```
+
