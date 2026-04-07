@@ -1668,3 +1668,65 @@ true
 Generic
 100
 ```
+
+### Using a Generic Function:
+
+There are two ways to use a generic function: with explicit type arguments or by letting TypeScript infer the type automatically.
+
+#### Basic Syntax:
+
+Here's how you can call a generic function with explicit type arguments:
+
+```ts
+const result1 = wrapInObject<string>("hello");
+const result2 = wrapInObject<number>(42);
+```
+
+The `<string>` and `<number>` explicitly tell TypeScript what type to use for `T`. This gives you complete control over the type parameter.
+
+However, TypeScript is smart enough to infer the type from the argument you pass in most cases:
+
+```ts
+const result1 = wrapInObject("hello");  // T inferred as string
+const result2 = wrapInObject(42);       // T inferred as number
+```
+
+Type inference makes your code cleaner and more readable while maintaining the same type safety. TypeScript analyzes the argument and automatically determines what `T` should be, so you don't have to type the explicit type annotation unless you want to override the inferred type.
+
+#### Example of Usage:
+
+```ts
+// Generic function from previous challenge
+function wrapInObject<T>(item: T): { value: T } {
+    return { value: item };
+}
+
+// Create variables using explicit type arguments
+const explicitString = wrapInObject<string>("TypeScript");
+const explicitNumber = wrapInObject<number>(25);
+const explicitBoolean = wrapInObject<boolean>(false);
+
+// Create variables using type inference
+const inferredString = wrapInObject("Generics");
+const inferredNumber = wrapInObject(99);
+const inferredBoolean = wrapInObject(true);
+
+// Print the results
+console.log(explicitString.value)
+console.log(explicitNumber.value)
+console.log(explicitBoolean.value)
+console.log(inferredString.value)
+console.log(inferredNumber.value)
+console.log(inferredBoolean.value)
+```
+
+##### Result:
+
+```
+TypeScript
+25
+false
+Generics
+99
+true
+```
