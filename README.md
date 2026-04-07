@@ -1730,3 +1730,51 @@ Generics
 99
 true
 ```
+
+### Generic Arrays:
+
+Arrays and generics work together beautifully in TypeScript. When you learned about typed arrays earlier, you used `T[]` syntax to specify that and array can only contain elements of a specific type. Generics give you another way to express this same concept.
+
+#### Basic Syntax:
+
+TypeScript provides an alternative syntax for types arrays using the `Array<T>` format:
+
+```ts
+// These two declarations are equivalent:
+let numbers1: number[] = [1, 2, 3];
+let numbers2: Array<number> = [1, 2, 3];
+```
+
+The `Array<T>` syntax is particularly useful when working with generic functions that operate on arrays. It makes the generic nature of your code more explicit and readable, especially when you're creating functions that can work with arrays of any type while preserving type safety.
+
+#### Example of Usage:
+
+```ts
+// Create the generic function getFirstElement
+function getFirstElement<T>(array: Array<T>): T | undefined {
+    return array.at(0);
+}
+
+// Create the required arrays using Array<T> syntax
+const stringArray: Array<string> = ["apple", "banana", "cherry"];
+const numberArray: Array<number> = [10, 20, 30, 40];
+const booleanArray: Array<boolean> = [true, false, true];
+const emptyStringArray: Array<string> = [];
+
+// Test the function and print the results
+console.log(getFirstElement(stringArray))
+console.log(getFirstElement(numberArray))
+console.log(getFirstElement(booleanArray))
+console.log(getFirstElement(emptyStringArray))
+console.log(getFirstElement(["single"]));
+```
+
+###### Result:
+
+```
+apple
+10
+true
+undefined
+single
+```
