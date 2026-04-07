@@ -1608,7 +1608,7 @@ In this example, `No` and `Maybe` are numeric members, while `Yes` is a string m
 
 ### The Problem Generics Solve:
 
-Imagine you want to create a function that simply returns whatever value you pass to it - and "identity". In reguler JavaScript, you might write something like this:
+Imagine you want to create a function that simply returns whatever value you pass to it - and "identity". In regular JavaScript, you might write something like this:
 
 ```ts
 function identity(arg: any): any {
@@ -1616,7 +1616,7 @@ function identity(arg: any): any {
 }
 ```
 
-While this function works, using `any` creates a significant problem: yyou lose all type safety. When you call `identity("Hello")`, TypeScript can't tell you that the result is a string. It only knows the result is `any`, which means you lose autocompletion, type checking and all the benefits TypeScript provides.
+While this function works, using `any` creates a significant problem: you lose all type safety. When you call `identity("Hello")`, TypeScript can't tell you that the result is a string. It only knows the result is `any`, which means you lose autocompletion, type checking and all the benefits TypeScript provides.
 
 ### Creating Generic Identity Functions:
 
@@ -1801,12 +1801,12 @@ The `<T>` after the interface name creates a type parameter that can be used thr
 When you sue a generic interface, you specify the concrete type in angle brackets:
 
 ```ts
-const stringContainer: Container = {
+const stringContainer: Container<string> = {
   value: "hello",
   isEmpty: false
 };
 
-const numberContainer: Container = {
+const numberContainer: Container<number> = {
   value: 42,
   isEmpty: false
 };
@@ -1865,3 +1865,84 @@ Success: item1,item2,item3
 Operation completed
 ```
 
+### Recap - Generics: A First Look
+
+Here is a summary based on generics in TypeScript:
+
+#### Creating Generics
+
+```ts
+// Functions:
+function validateType<T>(value: T): string {
+    return typeof value;
+}
+
+// Calling Generic functions:
+const result1 = validateType<string>("hello");  // Explicit Type Arguments
+const result2 = validateType(21);   // Inferred Type
+
+// Generic Arrays:
+function findArrayValue<T>(array: Array<T>, index: number): T | undefined {
+    return array.at(index);
+}
+
+const myArray: Array<string> = ["A", "B", "C"];
+const foundValue: string | undefined = findArrayValue(myArray, 1);
+console.log(foundValue);  // "B"
+
+// Making Arrays hold multiple types:
+const mixedArray: Array<string | boolean> = ["Box", false];
+
+// Generic Interfaces:
+interface User<T> {
+    username: string
+    data: T
+};
+
+const myUser: User<string> = {
+    username: "Vimto",
+    data: "Some data..."
+};
+```
+
+#### Example of a Program:
+
+```ts
+// Create the generic makePair function with type parameters T and U
+// The function should accept two parameters and return a tuple
+function makePair<T, U>(first: T, second: U): [T, U] {
+    return [first, second];
+};
+
+// stringNumberPair, booleanStringPair, numberBooleanPair
+const stringNumberPair: [string, number] = makePair("Hello", 42);
+const booleanStringPair = makePair(true, "World");
+const numberBooleanPair: [number, boolean] = makePair(100, false);
+
+// Destructure stringNumberPair and booleanStringPair as specified
+const [text, num]: Array<string | number> = stringNumberPair;
+const [flag, message]: Array<boolean | string> = booleanStringPair;
+
+// Print text, num, flag, message, and the other required values
+console.log(text)
+console.log(num)
+console.log(flag)
+console.log(message)
+console.log(numberBooleanPair[0])
+console.log(numberBooleanPair[1])
+console.log(makePair("TypeScript", 2024)[0])
+console.log(makePair(99, "bottles")[1])
+```
+
+##### Result:
+
+```
+Hello
+42
+true
+World
+100
+false
+TypeScript
+bottles
+```

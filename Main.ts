@@ -135,3 +135,30 @@
 // }
 
 // processUser(myRole);
+
+// Generics:
+function validateType<T>(value: T): string {
+    return typeof value;
+}
+
+// Storing results while calling generic functions:
+const result1 = validateType<string>("hello");
+const result2 = validateType(21);
+
+function findArrayValue<T>(array: Array<T>, index: number): T | undefined {
+    return array.at(index);
+}
+
+const myArray: Array<string> = ["A", "B", "C"];
+const foundValue: string | undefined = findArrayValue(myArray, 3);
+console.log(foundValue);
+
+interface User<T> {
+    username: string
+    data: T
+};
+
+const myUser: User<string> = {
+    username: "Vimto",
+    data: "Some data..."
+};
