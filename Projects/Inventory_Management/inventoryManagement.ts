@@ -75,6 +75,24 @@ const anotherBook: BookItem = {
     details: { title: "Design Patterns", author: "Gang of Four" }
 };
 
+const testBook: InventoryItem<any> = {
+    id: 300,
+    quantity: 6,
+    details: { title: "TypeScript Handbook", author: "Microsoft Team" }
+};
+
+const testElectronic: InventoryItem<any> = {
+    id: 400,
+    quantity: 2,
+    details: { brand: "Dell", model: "XPS 13" }
+};
+
+const unknownItem: InventoryItem<any> = {
+    id: 500,
+    quantity: 1,
+    details: { color: "Red", size: "Large" }
+};
+
 // Inventory Arrays:
 const bookInventory: InventoryItem<Book>[] = [book1];
 const electronicInventory: InventoryItem<Electronic>[] = [electronic1];
@@ -105,18 +123,39 @@ function findItemById<T>(inventory: InventoryItem<T>[], id: number): InventoryIt
     return inventory.filter(item => item.id === id).at(0);
 };
 
+function getItemDetails<T>(item: InventoryItem<any>): void {
+    if ("title" in item.details) console.log(`Book: ${item.details.title} by ${item.details.author}`);
+    else if ("brand" in item.details) console.log(`Electronic: ${item.details.brand} ${item.details.model}`);
+    else console.log("Unknown item type");
+}
+
 // Executing functions:
 const updatedBookInventory: InventoryItem<{ title: string; author: string }>[] = addItem(bookInventory, newBook);
 const updatedElectronicInventory: InventoryItem<{ brand: string; model: string }>[] = addItem(electronicInventory, newElectronic);
 
 const expandedBookStore: BookItem[] = addItem(bookStore, anotherBook);
 
+getItemDetails(testBook);
+getItemDetails(testElectronic);
+getItemDetails(unknownItem);
+
+const foundItem1: InventoryItem<Book> | undefined = findItemById(expandedBookStore, 100);
+if (foundItem1 !== undefined) {
+    getItemDetails(foundItem1);
+}
+
+const foundItem2: InventoryItem<any> | undefined = findItemById(electronicStore, 200);
+if (foundItem2 !== undefined) {
+    getItemDetails(foundItem2);
+}
+
+
 // Print the required outputs
-console.log(specificBook.details.title);
-console.log(specificBook.details.author);
-console.log(specificElectronic.details.brand);
-console.log(specificElectronic.details.model);
-console.log(expandedBookStore.length);
-console.log(findItemById(expandedBookStore, 101)?.details.title);
-console.log(findItemById(electronicStore, 200)?.quantity);
-console.log(expandedBookStore[1]?.details.author);
+// console.log(specificBook.details.title);
+// console.log(specificBook.details.author);
+// console.log(specificElectronic.details.brand);
+// console.log(specificElectronic.details.model);
+// console.log(expandedBookStore.length);
+// console.log(findItemById(expandedBookStore, 101)?.details.title);
+// console.log(findItemById(electronicStore, 200)?.quantity);
+// console.log(expandedBookStore[1]?.details.author);
