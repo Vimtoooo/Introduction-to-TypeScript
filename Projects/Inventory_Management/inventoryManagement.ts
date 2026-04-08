@@ -24,12 +24,39 @@ const clothingItem: InventoryItem<{ size: string; color: string }> = {
     details: { size: "M", color: "Blue" }
 };
 
+const newBook: InventoryItem<{ title: string; author: string }> = {
+    id: 4,
+    quantity: 2,
+    details: { title: "Advanced TypeScript", author: "Jane Smith" }
+};
+
+const newElectronic: InventoryItem<{ brand: string; model: string }> = {
+    id: 5,
+    quantity: 1,
+    details: { brand: "GadgetCorp", model: "Z500" }
+};
+
+// Inventory Arrays:
+const bookInventory: InventoryItem<{ title: string; author: string }>[] = [bookItem];
+const electronicInventory: InventoryItem<{ brand: string; model: string }>[] = [electronicItem];
+const clothingInventory: InventoryItem<{ size: string; color: string }>[] = [];
+
+// Generic Function:
+function addItem<T>(inventory: InventoryItem<T>[], newItem: InventoryItem<T>): InventoryItem<T>[] {
+    inventory.push(newItem);
+    return inventory;
+};
+
+// Executing functions:
+const updatedBookInventory: InventoryItem<{ title: string; author: string }>[] = addItem(bookInventory, newBook);
+const updatedElectronicInventory: InventoryItem<{ brand: string; model: string }>[] = addItem(electronicInventory, newElectronic);
+
 // Print the required outputs
-console.log(bookItem.id);
-console.log(bookItem.quantity);
-console.log(bookItem.details.title);
-console.log(bookItem.details.author);
-console.log(electronicItem.details.brand);
-console.log(electronicItem.details.model);
-console.log(clothingItem.details.size);
-console.log(clothingItem.details.color);
+console.log(updatedBookInventory.length);
+console.log(updatedBookInventory[1]?.details.title);
+console.log(updatedBookInventory[1]?.details.author);
+console.log(updatedElectronicInventory.length);
+console.log(updatedElectronicInventory[1]?.details.brand);
+console.log(updatedElectronicInventory[1]?.details.model);
+console.log(updatedElectronicInventory[0]?.id);
+console.log(updatedElectronicInventory[1]?.quantity);
