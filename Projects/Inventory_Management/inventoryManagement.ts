@@ -41,10 +41,25 @@ const bookInventory: InventoryItem<{ title: string; author: string }>[] = [bookI
 const electronicInventory: InventoryItem<{ brand: string; model: string }>[] = [electronicItem];
 const clothingInventory: InventoryItem<{ size: string; color: string }>[] = [];
 
+const mixedBookInventory: InventoryItem<{ title: string; author: string }>[] = [
+    { id: 10, quantity: 3, details: {title: "JavaScript Basics", author: "Alice Brown"} },
+    { id: 11, quantity: 7, details: {title: "React Fundamentals", author: "Bob Wilson"} },
+    { id: 12, quantity: 2, details: {title: "Node.js Guide", author: "Carol Davis"} }
+];
+
+const mixedElectronicInventory: InventoryItem<{ brand: string; model: string }>[] = [
+    { id: 20, quantity: 5, details: {brand: "Samsung", model: "Galaxy S23"} },
+    { id: 21, quantity: 1, details: {brand: "Apple", model: "iPhone 15"} }
+];
+
 // Generic Function:
 function addItem<T>(inventory: InventoryItem<T>[], newItem: InventoryItem<T>): InventoryItem<T>[] {
     inventory.push(newItem);
     return inventory;
+};
+
+function findItemById<T>(inventory: InventoryItem<T>[], id: number): InventoryItem<T> | undefined {
+    return inventory.filter(item => item.id === id).at(0);
 };
 
 // Executing functions:
@@ -52,11 +67,10 @@ const updatedBookInventory: InventoryItem<{ title: string; author: string }>[] =
 const updatedElectronicInventory: InventoryItem<{ brand: string; model: string }>[] = addItem(electronicInventory, newElectronic);
 
 // Print the required outputs
-console.log(updatedBookInventory.length);
-console.log(updatedBookInventory[1]?.details.title);
-console.log(updatedBookInventory[1]?.details.author);
-console.log(updatedElectronicInventory.length);
-console.log(updatedElectronicInventory[1]?.details.brand);
-console.log(updatedElectronicInventory[1]?.details.model);
-console.log(updatedElectronicInventory[0]?.id);
-console.log(updatedElectronicInventory[1]?.quantity);
+console.log(findItemById(mixedBookInventory, 11)?.details.title);
+console.log(findItemById(mixedElectronicInventory, 20)?.details.brand);
+console.log(findItemById(mixedBookInventory, 99));
+console.log(findItemById(mixedBookInventory, 12)?.quantity);
+console.log(findItemById(mixedElectronicInventory, 21)?.details.model);
+console.log(findItemById(mixedBookInventory, 10)?.id);
+console.log(findItemById(mixedElectronicInventory, 50));
