@@ -137,28 +137,107 @@
 // processUser(myRole);
 
 // Generics:
-function validateType<T>(value: T): string {
-    return typeof value;
-}
+// function validateType<T>(value: T): string {
+//     return typeof value;
+// }
 
-// Storing results while calling generic functions:
-const result1 = validateType<string>("hello");
-const result2 = validateType(21);
+// // Storing results while calling generic functions:
+// const result1 = validateType<string>("hello");
+// const result2 = validateType(21);
 
-function findArrayValue<T>(array: Array<T>, index: number): T | undefined {
-    return array.at(index);
-}
+// function findArrayValue<T>(array: Array<T>, index: number): T | undefined {
+//     return array.at(index);
+// }
 
-const myArray: Array<string> = ["A", "B", "C"];
-const foundValue: string | undefined = findArrayValue(myArray, 3);
-console.log(foundValue);
+// const myArray: Array<string> = ["A", "B", "C"];
+// const foundValue: string | undefined = findArrayValue(myArray, 3);
+// console.log(foundValue);
 
-interface User<T> {
-    username: string
-    data: T
+// interface User<T> {
+//     username: string
+//     data: T
+// };
+
+// const myUser: User<string> = {
+//     username: "Vimto",
+//     data: "Some data..."
+// };
+
+// Type Assertions:
+const legacyLaptop = { uuid: 101, title: "MacBook Pro", price: "2500", available: 1 };
+const legacyPhone = ["202", "iPhone 15", 999, true]; // Oh no, it's an array!
+const unknownItem: unknown = '{"id": 303, "name": "Keychron K2", "price": 80, "inStock": true}';
+
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    inStock: boolean;
 };
 
-const myUser: User<string> = {
-    username: "Vimto",
-    data: "Some data..."
+function hydrateProduct(source: unknown, type: 'object' | 'array' | 'json'): Product {
+
+    type RawProduct = {
+        id: string | number;
+        name: string;
+        price: string | number;
+        available: boolean | number;
+    };
+    
+    type LegacyObject = {
+        uuid: number | string;
+        title: string;
+        price: number | string;
+        available: boolean | number;
+    };
+
+    function cleanData(src: RawProduct | LegacyObject): Product {
+        if ('id' in src) {
+            return {
+                id: typeof src.id === 'number' ? src.id : Number.parseInt(src.id),
+                name: src.name,
+                price: typeof src.price === 'number' ? src.price : Number.parseFloat(src.price),
+                inStock: typeof src.available === 'boolean' ? src.available : Boolean(src.available)
+            };
+        } else {
+            return {
+                id: typeof src.uuid === 'number' ? src.uuid : Number.parseInt(src.uuid),
+                name: src.title,
+                price: typeof src.price === 'number' ? src.price : Number.parseFloat(src.price),
+                inStock: typeof src.available === 'boolean' ? src.available : Boolean(src.available)
+            };
+        };
+    };
+
+    if (type === 'object') {
+        const legacySource: LegacyObject = source as LegacyObject;
+        return cleanData(legacySource);
+    }
+
+    else if (type === 'array') {
+        const sourceArray: Array<string | number | boolean> = source as Array<string | number | boolean>;
+        return cleanData({
+            id: sourceArray.at(0) as (number | string),
+            name: sourceArray.at(1) as string,
+            price: sourceArray.at(2) as (string | number),
+            available: sourceArray.at(3) as (boolean | number)
+        });
+    }
+
+    else {
+        const jsonSource: RawProduct = JSON.parse(source as string);
+        return cleanData(jsonSource);
+    };
 };
+
+
+// TEST CASES
+console.log(hydrateProduct(legacyLaptop, 'object'));
+console.log(hydrateProduct(legacyPhone, 'array'));
+console.log(hydrateProduct(unknownItem, 'json'));
+
+/* RESULTS:
+{id: 101, name: 'MacBook Pro', price: 2500, inStock: true}
+{id: 202, name: 'iPhone 15', price: 999, inStock: true}
+{id: 303, name: 'Keychron K2', price: 80, inStock: false}
+*/

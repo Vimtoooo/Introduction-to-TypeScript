@@ -1979,7 +1979,7 @@ const apiResponse: unknown = '{"userId": 42, "username": "alice_dev", "isActive"
 const secondApiResponse: unknown = '{"userId": 15, "username": "bob_admin", "isActive": false}';
 const thirdApiResponse: unknown = '{"userId": 99, "username": "charlie_user", "isActive": true}';
 
-// TODO: Create the processUserData function here
+// Create the processUserData function here
 function processUserData(data: unknown): string {
     interface ApiStructure {
         userId: number;
@@ -2006,3 +2006,91 @@ User 15: bob_admin (Active: false)
 User 99: charlie_user (Active: true)
 ```
 
+### Type Assertions Problem: The Multi-Source Hydrator
+
+This problem focusses on treating and transforming data into a specific format where the API returns "dirty" or "raw" data in different formats. In this challenge, it will go over type assertions, along with type aliases and interfaces to help keep raw data tidy and ready for cleaning.
+
+#### Example of a Program:
+
+```ts
+// API Responses in different formats
+const legacyLaptop = { uuid: 101, title: "MacBook Pro", price: "2500", available: 1 };
+const legacyPhone = ["202", "iPhone 15", 999, true]; // Oh no, it's an array!
+const unknownItem: unknown = '{"id": 303, "name": "Keychron K2", "price": 80, "inStock": true}';
+
+interface Product {
+    id: number;
+    name: string;
+    price: number;
+    inStock: boolean;
+};
+
+function hydrateProduct(source: unknown, type: 'object' | 'array' | 'json'): Product {
+
+    type RawProduct = {
+        id: string | number;
+        name: string;
+        price: string | number;
+        available: boolean | number;
+    };
+    
+    type LegacyObject = {
+        uuid: number | string;
+        title: string;
+        price: number | string;
+        available: boolean | number;
+    };
+
+    function cleanData(src: RawProduct | LegacyObject): Product {
+        if ('id' in src) {
+            return {
+                id: typeof src.id === 'number' ? src.id : Number.parseInt(src.id),
+                name: src.name,
+                price: typeof src.price === 'number' ? src.price : Number.parseFloat(src.price),
+                inStock: typeof src.available === 'boolean' ? src.available : Boolean(src.available)
+            };
+        } else {
+            return {
+                id: typeof src.uuid === 'number' ? src.uuid : Number.parseInt(src.uuid),
+                name: src.title,
+                price: typeof src.price === 'number' ? src.price : Number.parseFloat(src.price),
+                inStock: typeof src.available === 'boolean' ? src.available : Boolean(src.available)
+            };
+        };
+    };
+
+    if (type === 'object') {
+        const legacySource: LegacyObject = source as LegacyObject;
+        return cleanData(legacySource);
+    }
+
+    else if (type === 'array') {
+        const sourceArray: Array<string | number | boolean> = source as Array<string | number | boolean>;
+        return cleanData({
+            id: sourceArray.at(0) as (number | string),
+            name: sourceArray.at(1) as string,
+            price: sourceArray.at(2) as (string | number),
+            available: sourceArray.at(3) as (boolean | number)
+        });
+    }
+
+    else {
+        const jsonSource: RawProduct = JSON.parse(source as string);
+        return cleanData(jsonSource);
+    };
+};
+
+
+// TEST CASES
+console.log(hydrateProduct(legacyLaptop, 'object'));
+console.log(hydrateProduct(legacyPhone, 'array'));
+console.log(hydrateProduct(unknownItem, 'json'));
+```
+
+##### Result:
+
+```
+{id: 101, name: 'MacBook Pro', price: 2500, inStock: true}
+{id: 202, name: 'iPhone 15', price: 999, inStock: true}
+{id: 303, name: 'Keychron K2', price: 80, inStock: false}
+```
