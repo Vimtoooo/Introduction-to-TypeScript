@@ -2366,3 +2366,90 @@ Name: Bob Johnson, Email: bob@test.com
 Name: Anonymous User, Email: No email provided
 Name: Sarah Wilson, Email: No email provided
 ```
+
+### Index Signatures for Objects:
+
+Sometimes you need to work with objects where you know what type of values they'll contain, but you don't know the specific property names in advance. This is common when working with dictionaries, maps, or configuration objects where the keys are dynamic.
+
+#### Basic Syntax:
+
+Index signatures allow you to define the type structure for such objects. The syntax uses square brackets to specify the key type and the value type:
+
+```ts
+interface StringDictionary {
+  [key: string]: number;
+}
+```
+
+This interface says "any string key will have a number value." You can then create objects that match this pattern:
+
+```ts
+let scores: StringDictionary = {
+  "alice": 95,
+  "bob": 87,
+  "charlie": 92
+};
+```
+
+Index signatures are particularly useful for scenarios like storing user preferences, caching data with dynamic keys or working with API responses where the property names aren't known at compile time. This key type is typically `string` or `number`, while the value type can be any valid TypeScript type.
+
+#### Example of Usage:
+
+```ts
+// Create the ProductCatalog interface
+interface ProductCatalog {
+    [key: string]: number;
+};
+
+// Create the getStockLevel function
+function getStockLevel(catalog: ProductCatalog, productName: string): number {
+    const currentStock: number | undefined = catalog[productName];
+    // console.log(currentStock)
+
+    if (currentStock !== undefined) return currentStock;
+    return 0;
+};
+
+// Create the updateStock function
+function updateStock(catalog: ProductCatalog, productName: string, newQuantity: number): void {
+    catalog[productName] = newQuantity;
+};
+
+// Create the getTotalStock function
+function getTotalStock(catalog: ProductCatalog): number {
+    let sum: number = 0;
+    for (let item in catalog) {
+        sum += catalog[item];
+    };
+    return sum;
+}
+
+// Create test data - inventory object
+let inventory: ProductCatalog = {
+    "laptop": 15,
+    "mouse": 50,
+    "keyboard": 25,
+    "monitor": 8
+};
+
+// Test the functions and print results
+console.log(getStockLevel(inventory, "laptop"));
+console.log(getStockLevel(inventory, "tablet"));
+console.log(getTotalStock(inventory));
+updateStock(inventory, "mouse", 75);
+updateStock(inventory, "webcam", 12);
+console.log(getStockLevel(inventory, "mouse"));
+console.log(getStockLevel(inventory, "webcam"));
+console.log(getTotalStock(inventory));
+```
+
+##### Result:
+
+```
+15
+0
+98
+75
+12
+135
+```
