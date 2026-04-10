@@ -2193,3 +2193,87 @@ Song: Imagine by John Lennon
 2023
 10
 ```
+
+### The 'never' Type:
+
+The `never` type represents **values that never occur**. This might sound confusing at first, but it's actually quite logical when you think about certain scenarios in your code.
+
+The `never` type is most commonly used for functions that never return normally. This includes functions that always throw an error or contain infinite loops:
+
+#### Basic Syntax:
+
+```ts
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+function infiniteLoop(): never {
+  while (true) {
+    // This loop never ends
+  }
+}
+```
+
+Unlike `void`, which indicates a function doesn't return a meaningful value, `never` indicates that the function **never reaches its end point at all**. The execution either stops due to an error being thrown or continues indefinitely.
+
+#### Example of Usage:
+
+```ts
+// Create the throwError function with never return type
+function throwError(message: string): never { throw new Error(message); };
+
+// Create the handleOperation function with number return type
+function handleOperation(operation: string, value: number): number {
+    switch (operation) {
+        case "double":
+            return value * 2;
+        
+        case "half":
+            return value / 2;
+        
+        default:
+            throwError(`Invalid operation: ${operation}`);
+    };
+};
+
+// Test the functions with try-catch blocks
+try {
+    console.log(handleOperation("double", 5));
+} catch (error) {
+    console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+    console.log(handleOperation("half", 8));
+} catch (error) {
+    console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+    console.log(handleOperation("triple", 3));
+} catch (error) {
+    console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+    console.log(handleOperation("double", 15));
+} catch (error) {
+    console.log(`Error: ${(error as Error).message}`);
+}
+
+try {
+    console.log(handleOperation("half", 20));
+} catch (error) {
+    console.log(`Error: ${(error as Error).message}`);
+}
+```
+
+##### Result:
+
+```
+10
+4
+Error: Invalid operation: triple
+30
+10
+```

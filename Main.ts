@@ -241,3 +241,10 @@ console.log(hydrateProduct(unknownItem, 'json'));
 {id: 202, name: 'iPhone 15', price: 999, inStock: true}
 {id: 303, name: 'Keychron K2', price: 80, inStock: false}
 */
+
+// The never keyword:
+// function throwError(message: string): never {
+//     throw new Error(message);
+// };
+
+// let test: never = throwError("");
