@@ -2277,3 +2277,92 @@ Error: Invalid operation: triple
 30
 10
 ```
+
+### Nullable Types ('strictNull'):
+
+By default, TypeScript allows `null` and `undefined` to be assigned to any type, which can lead to runtime errors. The `strictNullChecks` compiler option changes this behavior by making `null` and `undefined` their own distinct types.
+
+When `strictNullChecks` is enabled, you must explicitly include `null` or `undefined` in your type annotations if you want to allow these values:
+
+#### Basic Syntax:
+
+```ts
+// Without strictNullChecks - this would be allowed
+let name: string = null; // Error with strictNullChecks!
+
+// With strictNullChecks - you must be explicit
+let name: string | null = null; // Now this works
+```
+
+This option can be modified inside your `tsconfig.json` file when you initialize a new TypeScript environment with the command:
+
+```
+tsc --init
+```
+
+Note that the `tsconfig.json` file is the **configuration center for your TypeScript project**, it defines how the compiler should transform your TypeScript code into JavaScript and also identifies the root directory of your project.
+
+The property that says **"CompilerOptions"** is where you would insert the `strictNullChecks` value to either `true` or `false`, but by default, it'll be disabled and not inserted in it, so if you want to enable it, make sure to insert it into that section!
+
+With this option enabled, it will force TypeScript to handle `null` values before using them. You cannot call methods or access properties on a value that might be `null` without first checking:
+
+```ts
+function processName(name: string | null) {
+  // This would cause an error
+  // console.log(name.toUpperCase());
+  
+  // You must check first
+  if (name !== null) {
+    console.log(name.toUpperCase()); // Safe to use
+  }
+}
+```
+
+#### Summary:
+
+This compiler option helps prevent the common "Cannot read property of null" runtime errors by catching them at compile time, making your code more reliable and predictable.
+
+#### Example of Usage:
+
+```ts
+// Create the getUserDisplayName function that takes fullName (string | null) and returns string
+function getUserDisplayName(fullName: string | null): string {
+    if (typeof fullName === "string") return fullName;
+    return "Anonymous User";
+};
+
+// Create the formatUserEmail function that takes email (string | null) and returns string
+function formatUserEmail(email: string | null): string {
+    if (email !== null) return email.toLowerCase();
+    return "No email provided";
+};
+
+// Create the getUserInfo function that takes name and email (both string | null) and returns string
+function getUserInfo(name: string | null, email: string | null): string {
+    const validatedName: string = getUserDisplayName(name);
+    const validatedEmail: string = formatUserEmail(email);
+
+    return `Name: ${validatedName}, Email: ${validatedEmail}`;
+};
+
+// Test the functions and print the results
+console.log(getUserDisplayName("John Smith"));
+console.log(getUserDisplayName(null));
+console.log(formatUserEmail("ALICE@EXAMPLE.COM"));
+console.log(formatUserEmail(null));
+console.log(getUserInfo("Bob Johnson", "bob@test.com"));
+console.log(getUserInfo(null, null));
+console.log(getUserInfo("Sarah Wilson", null));
+```
+
+##### Result:
+
+```
+John Smith
+Anonymous User
+alice@example.com
+No email provided
+Name: Bob Johnson, Email: bob@test.com
+Name: Anonymous User, Email: No email provided
+Name: Sarah Wilson, Email: No email provided
+```
