@@ -2094,3 +2094,102 @@ console.log(hydrateProduct(unknownItem, 'json'));
 {id: 202, name: 'iPhone 15', price: 999, inStock: true}
 {id: 303, name: 'Keychron K2', price: 80, inStock: false}
 ```
+
+### Type Guards: in & instanceof
+
+When working with union types, you ofter need to determine which specific type you're dealing with before you can safely access type-specific properties or methods. Type guards provide a safe way to narrow down types at runtime.
+
+#### Basic Syntax:
+
+The `in` operator validates whether a property exists on an object. This is particularly useful when you have a union of object types with different properties:
+
+##### The 'in' Operator:
+
+```ts
+type Dog = { name: string; breed: string };
+type Cat = { name: string; meow: () => void };
+
+function petSound(pet: Dog | Cat) {
+  if ('breed' in pet) {
+    // TypeScript knows pet is a Dog here
+    console.log(`${pet.name} is a ${pet.breed}`);
+  } else {
+    // TypeScript knows pet is a Cat here
+    pet.meow();
+  }
+}
+```
+
+##### The 'instanceof' Operator:
+
+The `instanceof` operator checks if an object was created by a specific constructor function or class. While we haven't covered classes yet, this operator is useful when working with built-in JavaScript objects or custom classes:
+
+```ts
+function processValue(value: string | Date) {
+  if (value instanceof Date) {
+    // TypeScript knows value is a Date
+    console.log(value.getFullYear());
+  } else {
+    // TypeScript knows value is a string
+    console.log(value.toUpperCase());
+  }
+}
+```
+
+#### Summary:
+
+Both operators help TypeScript's compiler understand which type you're working with, enabling safe access to type-specific properties and methods!
+
+#### Example of Usage:
+
+```ts
+// Create type aliases for Movie and Song
+type Movie = {
+    title: string;
+    director: string;
+};
+
+type Song = {
+    title: string;
+    artist: string;
+};
+
+// Create the getMediaInfo function
+function getMediaInfo(media: Movie | Song): string {
+    if ("director" in media) return `Movie: ${media.title} directed by ${media.director}`;
+    return `Song: ${media.title} by ${media.artist}`;
+};
+
+// Create the processValue function
+const processValue = (value: string | Date): number => { // Arrow Function...
+    if (value instanceof Date) return value.getFullYear();
+    return value.length;
+};
+
+// Create test data
+const movie1 = { title: "Inception", director: "Christopher Nolan" };
+const song1 = { title: "Bohemian Rhapsody", artist: "Queen" };
+const movie2 = { title: "The Matrix", director: "The Wachowskis" };
+const song2 = { title: "Imagine", artist: "John Lennon" };
+const testDate = new Date("2023-12-25");
+const testString = "TypeScript";
+
+// Print the outputs
+console.log(getMediaInfo(movie1));
+console.log(getMediaInfo(song1));
+console.log(getMediaInfo(movie2));
+console.log(getMediaInfo(song2));
+console.log(processValue(testDate));
+console.log(processValue(testString));
+```
+
+##### Result:
+
+```
+Movie: Inception directed by Christopher Nolan
+Song: Bohemian Rhapsody by Queen
+Movie: The Matrix directed by The Wachowskis
+Song: Imagine by John Lennon
+2023
+10
+```
